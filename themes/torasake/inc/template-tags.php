@@ -230,8 +230,13 @@ function torasake_nav_variant(): string {
 	if ( is_front_page() ) {
 		return 'front';
 	}
-	if ( is_singular( 'post' ) ) {
+	// 記事系はハンバーガー付きのフルナビ。
+	if ( is_singular( array( 'post', 'past_event' ) ) ) {
 		return 'article';
+	}
+	// イベント告知はチケットCTA付き。
+	if ( is_singular( 'event' ) ) {
+		return 'event';
 	}
 	return 'back';
 }
@@ -248,7 +253,7 @@ function torasake_footer_variant(): string {
 	if ( is_singular( 'brewery' ) ) {
 		return 'copyright';
 	}
-	if ( is_singular( 'post' ) ) {
+	if ( is_singular( array( 'post', 'past_event' ) ) ) {
 		return 'article';
 	}
 	return 'brand';
@@ -260,10 +265,11 @@ function torasake_footer_variant(): string {
  * @return array{0:string,1:string} URL とラベル。
  */
 function torasake_back_link(): array {
-	if ( is_singular( 'brewery' ) || is_post_type_archive( 'brewery' ) ) {
-		return is_singular( 'brewery' )
-			? array( home_url( '/breweries/' ), '参加酒蔵 一覧へ' )
-			: array( home_url( '/' ), 'トップへ戻る' );
+	if ( is_singular( 'brewery' ) ) {
+		return array( home_url( '/breweries/' ), '参加酒蔵 一覧へ' );
+	}
+	if ( is_singular( 'blog_post' ) ) {
+		return array( home_url( '/blog/' ), 'ブログ一覧へ' );
 	}
 	return array( home_url( '/' ), 'トップへ戻る' );
 }
@@ -634,4 +640,161 @@ function torasake_brewery_event_history( int $brewery_id ): array {
 function torasake_posts_page_title(): string {
 	$page_id = (int) get_option( 'page_for_posts' );
 	return $page_id ? get_the_title( $page_id ) : 'お知らせ';
+}
+
+/**
+ * イベントの開催回ラベル（ヒーローの pill）。
+ *
+ * @param int $event_id イベントID。
+ * @return string
+ */
+function torasake_event_edition_label( int $event_id ): string {
+	$override = (string) torasake_field( 'edition_pill', $event_id );
+	if ( '' !== $override ) {
+		return $override;
+	}
+
+	$terms = get_the_terms( $event_id, 'event_edition' );
+	if ( is_wp_error( $terms ) || empty( $terms ) ) {
+		return '';
+	}
+
+	return torasake_edition_label( $terms[0] );
+}
+
+/**
+ * イベント詳細ヒーローの日程・時間・会場。
+ *
+ * @param int $event_id イベントID。
+ * @return array<int,array{key:string,value:string}>
+ */
+function torasake_event_meta_row( int $event_id ): array {
+	$row = array();
+
+	$date = torasake_event_date_label( $event_id );
+	if ( '' !== $date ) {
+		$row[] = array( 'key' => '日程', 'value' => $date );
+	}
+
+	$time = (string) torasake_field( 'event_time_range', $event_id );
+	if ( '' !== $time ) {
+		$row[] = array( 'key' => '時間', 'value' => $time );
+	}
+
+	$venue = (string) torasake_field( 'venue_name', $event_id );
+	if ( '' !== $venue ) {
+		$row[] = array( 'key' => '会場', 'value' => $venue );
+	}
+
+	return $row;
+}
+
+/**
+ * 会場カードの「住所 / 最寄駅 / フロア」行。
+ *
+ * @param int $event_id イベントID。
+ * @return array<int,string>
+ */
+function torasake_event_venue_lines( int $event_id ): array {
+	$lines = array();
+
+	foreach ( array( '住所' => 'venue_address', '最寄駅' => 'venue_access', 'フロア' => 'venue_floor' ) as $label => $field ) {
+		$value = (string) torasake_field( $field, $event_id );
+		if ( '' !== $value ) {
+			$lines[] = $label . ':' . $value;
+		}
+	}
+
+	return $lines;
+}
+
+/**
+ * イベントに紐づくスポンサーをティア別にまとめる。
+ *
+ * @param int $event_id イベントID。
+ * @return array<string,array<int,int>> title / supporter の順。空なら空配列。
+ */
+function torasake_event_sponsors_by_tier( int $event_id ): array {
+	return torasake_group_sponsors( torasake_rows( 'sponsors', $event_id ) );
+}
+
+/**
+ * 公開中のスポンサーを全件ティア別にまとめる（協賛ページ用）。
+ *
+ * @return array<string,array<int,int>>
+ */
+function torasake_sponsors_by_tier(): array {
+	$query = new WP_Query(
+		array(
+			'post_type'      => 'sponsor',
+			'posts_per_page' => -1,
+			'post_status'    => 'publish',
+			'no_found_rows'  => true,
+			'orderby'        => 'menu_order title',
+			'order'          => 'ASC',
+		)
+	);
+
+	return torasake_group_sponsors( $query->posts );
+}
+
+/**
+ * スポンサー投稿の集合を tier で振り分ける。
+ *
+ * @param array<int,mixed> $items WP_Post または投稿ID の配列。
+ * @return array<string,array<int,int>>
+ */
+function torasake_group_sponsors( array $items ): array {
+	$grouped = array( 'title' => array(), 'supporter' => array() );
+
+	foreach ( $items as $item ) {
+		$id = $item instanceof WP_Post ? (int) $item->ID : (int) $item;
+		if ( ! $id || 'publish' !== get_post_status( $id ) ) {
+			continue;
+		}
+		$tier = 'title' === torasake_field( 'tier', $id, 'supporter' ) ? 'title' : 'supporter';
+		$grouped[ $tier ][] = $id;
+	}
+
+	// 中身のあるティアだけ返す。
+	return array_filter( $grouped );
+}
+
+/**
+ * ブログ記事の「◯◯県 ◯◯酒造」行。
+ *
+ * @param int $blog_id ブログ記事ID。
+ * @return string
+ */
+function torasake_blog_brewery_line( int $blog_id ): string {
+	$brewery_id = torasake_first_post_id( torasake_field( 'related_brewery', $blog_id, null ) );
+	if ( ! $brewery_id ) {
+		return '';
+	}
+
+	$pref = torasake_brewery_pref( $brewery_id );
+	$name = get_the_title( $brewery_id );
+
+	return '' === $pref ? $name : $pref . ' ' . $name;
+}
+
+/**
+ * relationship / post_object の戻り値から最初の投稿IDを取り出す。
+ *
+ * relationship は配列、post_object は単体を返すので両方受ける。
+ *
+ * @param mixed $value ACF の戻り値。
+ * @return int 見つからなければ 0。
+ */
+function torasake_first_post_id( $value ): int {
+	if ( $value instanceof WP_Post ) {
+		return (int) $value->ID;
+	}
+	if ( is_numeric( $value ) ) {
+		return (int) $value;
+	}
+	if ( is_array( $value ) && ! empty( $value ) ) {
+		return torasake_first_post_id( reset( $value ) );
+	}
+	return 0;
 }

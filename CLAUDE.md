@@ -31,6 +31,10 @@ torasake.com（静的HTML）をWordPressフルカスタムテーマへ移行し�
   「WordPress 実装で足した分」の見出しを付けて分離してある。確定値の側を書き換えない。
 - なお `design_handoff_wordpress/README.md` の「トップページ＝紺基調 `--bg:#050c18`」は
   v5 の記述で、確定版の v6（`reference/top-page.html`）は水色基調 `--bg:#eaf6fc`。参照HTMLを優先する。
+- **`archive-blog_post.php` だけは参照HTMLが存在しない**（ハンドオフはブログ記事単体のみ）。
+  暫定デザインなので、確定版が出たら差し替える。
+- 参照HTMLの `.tpl-flag`（「テンプレート — 内容を差し替えてください」の付箋）は
+  差し替え目印なのでテンプレートから出力しない。CSS定義だけ逐語移植で残してある。
 
 ### 4. 数値をハードコードしない
 蔵数・来場者数・開催日などは `event` / `past_event` の ACF から算出する。

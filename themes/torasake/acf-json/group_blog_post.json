@@ -3,11 +3,43 @@
     "title": "ブログ",
     "fields": [
         {
+            "key": "field_blog_category_label",
+            "label": "カテゴリバッジ",
+            "name": "category_label",
+            "type": "text",
+            "instructions": "ヒーローの金色バッジ。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "蔵元インタビュー",
+            "placeholder": ""
+        },
+        {
             "key": "field_blog_youtube_video_id",
             "label": "YouTube動画ID",
             "name": "youtube_video_id",
             "type": "text",
             "instructions": "URLではなくID部分だけ。例: dQw4w9WgXcQ",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_blog_video_caption",
+            "label": "動画キャプション",
+            "name": "video_caption",
+            "type": "text",
+            "instructions": "例: ◯◯酒造 蔵元インタビュー（TORASAKE Channel）",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {

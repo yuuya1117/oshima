@@ -1,0 +1,102 @@
+/*
+ * ブログ記事（single-blog_post.php）
+ *
+ * 出典: docs/design_handoff_wordpress/reference/blog-single-template.html の <style> を逐語移植。
+ * 色・余白・タイポは確定値。参照ごとに :root の値が異なるため統一しない。
+ */
+
+:root {
+  --bg: #e8f5fb; --bg2: #f4f9fd; --bg3: #ffffff;
+  --gold: #c8a060; --gold-dim: #a07840;
+  --red: #e63329; --red-bright: #f04040;
+  --text: #1a1a2e; --text-dim: #5a6a78;
+  --border: rgba(90,140,180,0.25);
+  --navy: #0d1929;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Noto Serif JP', serif; background: var(--bg); color: var(--text); line-height: 1.9; }
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+.mono { font-family: 'Noto Sans JP', sans-serif; }
+
+.tpl-flag {
+  position: fixed; bottom: 16px; right: 16px; z-index: 999;
+  background: var(--navy); color: #f0d9a8; font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.7rem; letter-spacing: 0.08em; padding: 0.6rem 1rem; border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 3rem; height: 64px;
+  background: rgba(232,245,251,0.92); backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(90,168,200,0.2);
+}
+.nav-logo img { height: 30px; }
+.nav-back {
+  font-family: 'Noto Sans JP', sans-serif; font-size: 0.78rem; color: var(--text-dim);
+  text-decoration: none; letter-spacing: 0.08em; white-space: nowrap; flex-shrink: 0;
+}
+.nav-back:hover { color: var(--red); }
+
+/* ─── ARTICLE HERO ─── */
+header.article-hero { padding: 9.5rem 2rem 2.6rem; text-align: center; background: linear-gradient(160deg, #c2e8f8 0%, #eef8fd 70%); }
+.article-cat {
+  display: inline-block; font-family: 'Noto Sans JP', sans-serif; font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.15em; background: var(--gold); color: #fff; padding: 0.3rem 0.9rem; border-radius: 12px; margin-bottom: 1rem;
+}
+header.article-hero h1 { font-size: clamp(1.7rem, 4vw, 2.4rem); font-weight: 900; letter-spacing: 0.03em; max-width: 720px; margin: 0 auto; }
+.article-meta {
+  margin-top: 1.1rem; font-family: 'Noto Sans JP', sans-serif; font-size: 0.8rem; color: var(--text-dim);
+  display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+}
+
+main { max-width: 720px; margin: 0 auto; padding: 3rem 2rem 4rem; }
+
+/* ─── VIDEO EMBED ─── */
+.video-embed {
+  position: relative; width: 100%; padding-top: 56.25%; border-radius: 10px; overflow: hidden;
+  background: repeating-linear-gradient(135deg,#e3e9ec,#e3e9ec 10px,#eceef0 10px,#eceef0 20px);
+  box-shadow: 0 16px 44px -18px rgba(30,60,100,0.3); margin-bottom: 0.9rem;
+}
+.video-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+.video-embed .video-placeholder {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  font-family: 'Noto Sans JP', sans-serif; font-size: 0.8rem; color: #8b98a1; text-align: center; padding: 1rem;
+}
+.video-caption { font-family: 'Noto Sans JP', sans-serif; font-size: 0.76rem; color: var(--text-dim); text-align: center; margin-bottom: 2.6rem; }
+
+/* ─── ARTICLE BODY ─── */
+.article-body p { font-size: 1rem; margin-bottom: 1.4rem; }
+.article-body h2 { font-size: 1.25rem; font-weight: 800; margin: 2.4rem 0 1rem; letter-spacing: 0.02em; }
+.pull-quote {
+  border-left: 3px solid var(--gold); padding: 0.4rem 0 0.4rem 1.4rem; margin: 2rem 0;
+  font-size: 1.1rem; color: var(--text); font-style: normal;
+}
+.pull-quote .who { display: block; margin-top: 0.6rem; font-family: 'Noto Sans JP', sans-serif; font-size: 0.75rem; color: var(--gold-dim); letter-spacing: 0.08em; }
+
+/* ─── RELATED BREWERY CARD ─── */
+.related-brewery {
+  margin-top: 3rem; display: flex; gap: 1.2rem; align-items: center;
+  background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; padding: 1.3rem 1.5rem;
+  text-decoration: none; color: inherit; transition: border-color 0.2s, box-shadow 0.2s;
+}
+.related-brewery:hover { border-color: var(--gold); box-shadow: 0 14px 34px -18px rgba(200,160,96,0.4); }
+.related-brewery .rb-logo {
+  width: 64px; height: 64px; flex: none; background: #f8f4ee; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+}
+.related-brewery .rb-logo img { max-width: 78%; max-height: 78%; object-fit: contain; }
+.related-brewery .rb-label { font-family: 'Noto Sans JP', sans-serif; font-size: 0.68rem; color: var(--gold-dim); letter-spacing: 0.1em; margin-bottom: 0.2rem; }
+.related-brewery .rb-name { font-weight: 700; font-size: 1.02rem; }
+
+footer { background: var(--navy); color: #c9d3da; padding: 2.4rem 2rem 3rem; text-align: center; font-family: 'Noto Sans JP', sans-serif; font-size: 0.78rem; margin-top: 2rem; }
+footer .fl { color: var(--gold); font-family: 'Noto Serif JP', serif; font-size: 1.1rem; letter-spacing: 0.2em; margin-bottom: 0.9rem; display: block; }
+
+@media (max-width: 768px) {
+  nav { padding: 0 1rem; }
+  header.article-hero { padding: 7.5rem 1.2rem 2rem; }
+  main { padding: 2rem 1.2rem 3rem; }
+}

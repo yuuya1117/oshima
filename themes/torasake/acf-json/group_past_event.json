@@ -105,6 +105,91 @@
             ]
         },
         {
+            "key": "field_past_info_list",
+            "label": "開催概要",
+            "name": "info_list",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "行を追加",
+            "sub_fields": [
+                {
+                    "key": "field_info_key_en",
+                    "label": "英字ラベル",
+                    "name": "key_en",
+                    "type": "text",
+                    "instructions": "例: EVENT / DATE / VENUE / PARTICIPATING BREWERIES / ATTENDANCE / MEDIA",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "28",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_info_value",
+                    "label": "内容",
+                    "name": "value",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "52",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_info_url",
+                    "label": "リンク先",
+                    "name": "url",
+                    "type": "url",
+                    "instructions": "入れると内容がリンクになる（外部メディア掲載など）。",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "20",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": ""
+                }
+            ]
+        },
+        {
+            "key": "field_past_report_heading",
+            "label": "レポート見出し",
+            "name": "report_heading",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "当日の様子",
+            "placeholder": ""
+        },
+        {
             "key": "field_past_report_body",
             "label": "レポート本文",
             "name": "report_body",
@@ -139,6 +224,40 @@
             "preview_size": "medium",
             "insert": "append",
             "library": "all"
+        },
+        {
+            "key": "field_past_closing_heading",
+            "label": "締めの見出し",
+            "name": "closing_heading",
+            "type": "text",
+            "instructions": "例: そして、2026年へ。空なら締めのセクションごと非表示。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_past_closing_body",
+            "label": "締めの本文",
+            "name": "closing_body",
+            "type": "wysiwyg",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
         },
         {
             "key": "field_past_report_link",

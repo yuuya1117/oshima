@@ -25,6 +25,11 @@ themes/torasake/          テーマ本体
   single-brewery.php      酒蔵詳細
   home.php                お知らせ一覧
   single.php              お知らせ詳細
+  single-event.php        イベント告知
+  single-past_event.php   過去開催レポート
+  archive-blog_post.php   ブログ一覧 ※参照HTML無し・暫定デザイン
+  single-blog_post.php    ブログ記事 / 蔵元インタビュー
+  page-sponsors.php       協賛ページ
   index.php               フォールバック
 
 docs/
@@ -46,6 +51,7 @@ docs/
    （パーマリンク構造・固定ページ・初期ターム・リライトルール。すべて冪等）
 4. 「設定 > 表示設定」で投稿ページが「お知らせ」になっているか確認
 5. `event` を1件作り `event_status` を「開催予定」にする → トップがその回の告知になる
+6. 「協賛について」固定ページのテンプレートが「協賛ページ」になっているか確認
 
 詳しくは [`docs/移行手順.md`](docs/移行手順.md)。
 

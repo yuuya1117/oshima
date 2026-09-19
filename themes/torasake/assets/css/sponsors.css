@@ -1,0 +1,90 @@
+/*
+ * 協賛ページ（page-sponsors.php）
+ *
+ * 出典: docs/design_handoff_wordpress/reference/sponsors-page.html の <style> を逐語移植。
+ * 色・余白・タイポは確定値。参照ごとに :root の値が異なるため統一しない。
+ */
+
+:root {
+  --bg: #e8f5fb; --bg2: #f4f9fd; --bg3: #ffffff;
+  --gold: #c8a060; --gold-dim: #a07840;
+  --red: #e63329; --red-bright: #f04040;
+  --text: #1a1a2e; --text-dim: #5a6a78;
+  --border: rgba(90,140,180,0.25);
+  --navy: #0d1929;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Noto Serif JP', serif; background: var(--bg); color: var(--text); line-height: 1.8; }
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+.mono { font-family: 'Noto Sans JP', sans-serif; }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 3rem; height: 64px;
+  background: rgba(232,245,251,0.92); backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(90,168,200,0.2);
+}
+.nav-logo img { height: 30px; }
+.nav-back {
+  font-family: 'Noto Sans JP', sans-serif; font-size: 0.78rem; color: var(--text-dim);
+  text-decoration: none; letter-spacing: 0.08em; white-space: nowrap; flex-shrink: 0;
+}
+.nav-back:hover { color: var(--red); }
+
+header.page-hero { padding: 9.5rem 2rem 3rem; text-align: center; background: linear-gradient(160deg, #c2e8f8 0%, #eef8fd 70%); }
+.page-hero-eyebrow { font-family: 'Noto Sans JP', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.4em; color: var(--gold-dim); text-transform: uppercase; }
+.page-hero h1 { font-size: clamp(1.9rem, 4vw, 2.5rem); font-weight: 900; margin-top: 0.8rem; letter-spacing: 0.03em; }
+.page-hero p { font-family: 'Noto Sans JP', sans-serif; color: var(--text-dim); font-size: 0.92rem; max-width: 560px; margin: 1.2rem auto 0; }
+
+section { padding: 5rem 2rem; }
+.section-inner { max-width: 1000px; margin: 0 auto; }
+.section-header { text-align: center; margin-bottom: 2.6rem; }
+.section-label { font-family: 'Noto Sans JP', sans-serif; font-size: 0.68rem; letter-spacing: 0.35em; color: var(--gold-dim); text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 0.7rem; }
+.section-title { font-size: 1.6rem; font-weight: 800; letter-spacing: 0.03em; }
+.divider { width: 52px; height: 2px; background: linear-gradient(90deg, var(--red), var(--gold)); margin: 1rem auto 0; }
+
+/* ─── TIER CARDS ─── */
+#tiers { background: var(--bg2); }
+.tier-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem; }
+.tier-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; padding: 2.2rem 2rem; }
+.tier-card.title-tier { border: 1px solid var(--gold); box-shadow: 0 14px 40px -20px rgba(200,160,96,0.5); }
+.tier-badge {
+  font-family: 'Noto Sans JP', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em;
+  padding: 0.3rem 0.8rem; border-radius: 12px; display: inline-block; margin-bottom: 1rem; white-space: nowrap;
+}
+.tier-badge.title-badge { background: var(--gold); color: #fff; }
+.tier-badge.supporter-badge { background: #e2e8ec; color: var(--text-dim); }
+.tier-card h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 0.8rem; }
+.tier-card ul { list-style: none; font-family: 'Noto Sans JP', sans-serif; font-size: 0.85rem; color: var(--text-dim); display: flex; flex-direction: column; gap: 0.6rem; }
+.tier-card li { display: flex; gap: 0.6rem; align-items: flex-start; }
+.tier-card li::before { content: '—'; color: var(--gold-dim); flex: none; }
+
+/* ─── HOW IT WORKS ─── */
+.flow-steps { display: flex; flex-direction: column; gap: 1.2rem; max-width: 640px; margin: 0 auto; }
+.flow-step { display: flex; gap: 1.2rem; align-items: flex-start; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 1.3rem 1.5rem; }
+.flow-num { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--red-bright), var(--red)); color: #fff; font-weight: 800; display: flex; align-items: center; justify-content: center; flex: none; }
+.flow-step h4 { font-size: 0.98rem; font-weight: 700; margin-bottom: 0.2rem; }
+.flow-step p { font-family: 'Noto Sans JP', sans-serif; font-size: 0.8rem; color: var(--text-dim); }
+
+/* ─── CONTACT CTA ─── */
+#contact { text-align: center; background: var(--navy); color: #e8ecef; }
+#contact .section-label { color: var(--gold); }
+#contact h2 { color: #fff; }
+#contact p { font-family: 'Noto Sans JP', sans-serif; color: rgba(255,255,255,0.7); max-width: 520px; margin: 1rem auto 1.8rem; font-size: 0.9rem; }
+.btn-primary {
+  padding: 0.95rem 2.4rem; background: var(--red); color: #fff; font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 700; letter-spacing: 0.1em; font-size: 0.85rem; border-radius: 30px; text-decoration: none; display: inline-block;
+  white-space: nowrap;
+}
+
+footer { background: var(--navy); color: #c9d3da; padding: 2.4rem 2rem 3rem; text-align: center; font-family: 'Noto Sans JP', sans-serif; font-size: 0.78rem; border-top: 1px solid rgba(255,255,255,0.08); }
+footer .fl { color: var(--gold); font-family: 'Noto Serif JP', serif; font-size: 1.1rem; letter-spacing: 0.2em; margin-bottom: 0.9rem; display: block; }
+
+@media (max-width: 768px) {
+  nav { padding: 0 1rem; }
+  header.page-hero { padding: 7.5rem 1.2rem 2.4rem; }
+  section { padding: 3.5rem 1.2rem; }
+  .tier-grid { grid-template-columns: 1fr; }
+}

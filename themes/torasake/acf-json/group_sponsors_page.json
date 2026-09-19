@@ -1,0 +1,260 @@
+{
+    "key": "group_sponsors_page",
+    "title": "協賛ページ",
+    "fields": [
+        {
+            "key": "field_sp_hero_heading",
+            "label": "ヒーロー見出し",
+            "name": "hero_heading",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "TORASAKEと共に、日本酒文化を届ける。",
+            "placeholder": ""
+        },
+        {
+            "key": "field_sp_hero_body",
+            "label": "ヒーロー本文",
+            "name": "hero_body",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "虎ノ門ヒルズを起点に、東京駅丸の内など会場を広げながら継続開催しているTORASAKE -虎ノ酒-。毎月のミニイベントと年数回の大型イベントを、企業・団体の皆さまと共につくっていきたいと考えています。",
+            "rows": 4,
+            "new_lines": ""
+        },
+        {
+            "key": "field_sp_sponsor_tiers",
+            "label": "協賛プラン",
+            "name": "sponsor_tiers",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "field_tier_name",
+            "min": 0,
+            "max": 0,
+            "layout": "block",
+            "button_label": "プランを追加",
+            "sub_fields": [
+                {
+                    "key": "field_tier_tier",
+                    "label": "ティア",
+                    "name": "tier",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "title": "タイトルスポンサー",
+                        "supporter": "サポーター"
+                    },
+                    "default_value": "supporter",
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 0,
+                    "return_format": "value",
+                    "ajax": 0,
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_tier_badge",
+                    "label": "バッジ文言",
+                    "name": "badge",
+                    "type": "text",
+                    "instructions": "例: タイトルスポンサー",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "35",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_tier_name",
+                    "label": "プラン名",
+                    "name": "name",
+                    "type": "text",
+                    "instructions": "例: ◯◯ presents TORASAKE",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "40",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_tier_benefits",
+                    "label": "特典",
+                    "name": "benefits",
+                    "type": "repeater",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "collapsed": "",
+                    "min": 0,
+                    "max": 0,
+                    "layout": "table",
+                    "button_label": "特典を追加",
+                    "sub_fields": [
+                        {
+                            "key": "field_benefit_text",
+                            "label": "内容",
+                            "name": "text",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "key": "field_sp_sponsor_flow",
+            "label": "協賛開始までの流れ",
+            "name": "sponsor_flow",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "ステップを追加",
+            "sub_fields": [
+                {
+                    "key": "field_flow_title",
+                    "label": "見出し",
+                    "name": "title",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "32",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_flow_body",
+                    "label": "説明",
+                    "name": "body",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "68",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "rows": 2,
+                    "new_lines": ""
+                }
+            ]
+        },
+        {
+            "key": "field_sp_contact_body",
+            "label": "問い合わせ文",
+            "name": "contact_body",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "プラン内容のご相談、次回イベントのご案内など、お気軽にお問い合わせください。",
+            "rows": 2,
+            "new_lines": ""
+        },
+        {
+            "key": "field_sp_contact_email",
+            "label": "問い合わせ先メールアドレス",
+            "name": "contact_email",
+            "type": "email",
+            "instructions": "空にするとお問い合わせセクションごと非表示になる。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-sponsors.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "/sponsors/ の内容。初期値は reference/sponsors-page.html の文言。",
+    "show_in_rest": 0,
+    "modified": 1758283200
+}

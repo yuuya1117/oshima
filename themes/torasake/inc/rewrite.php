@@ -16,6 +16,11 @@
  * 新規（移行制約なし）:
  *   /breweries/                       → archive-brewery.php
  *   /breweries/{slug}.html            → single-brewery.php
+ *   /events/{slug}.html               → single-event.php
+ *   /past/{slug}/                     → single-past_event.php
+ *   /blog/                            → archive-blog_post.php
+ *   /blog/{slug}/                     → single-blog_post.php
+ *   /sponsors/                        → page-sponsors.php
  *
  * @package torasake
  */
@@ -43,7 +48,12 @@ function torasake_rewrite_rules(): void {
 	// /past/ は固定ページで受ける（テーマ有効化時に作成）。個別レポートは /past/{slug}/。
 	add_rewrite_rule( '^past/([^/]+)/?$', 'index.php?post_type=past_event&past_event=$matches[1]&name=$matches[1]', 'top' );
 
-	// ── ブログ・協賛（新規URL）──
+	// ── イベント告知 ──
+	// 参照HTML（event-single-template.html）の canonical が /events/{slug}.html なので同形にする。
+	add_rewrite_rule( '^events/?$', 'index.php?post_type=event', 'top' );
+	add_rewrite_rule( '^events/([^/]+)\.html$', 'index.php?post_type=event&event=$matches[1]&name=$matches[1]', 'top' );
+
+	// ── ブログ（新規URL）──
 	add_rewrite_rule( '^blog/?$', 'index.php?post_type=blog_post', 'top' );
 	add_rewrite_rule( '^blog/([^/]+)/?$', 'index.php?post_type=blog_post&blog_post=$matches[1]&name=$matches[1]', 'top' );
 }
@@ -88,8 +98,9 @@ function torasake_post_type_link( string $link, WP_Post $post ): string {
 	}
 
 	return match ( $post->post_type ) {
-		// 参照HTMLと同形（/breweries/taka.html）。
+		// 参照HTMLと同形（/breweries/taka.html、/events/torasake-mini.html）。
 		'brewery'    => home_url( '/breweries/' . $post->post_name . '.html' ),
+		'event'      => home_url( '/events/' . $post->post_name . '.html' ),
 		'past_event' => home_url( '/past/' . $post->post_name . '/' ),
 		'blog_post'  => home_url( '/blog/' . $post->post_name . '/' ),
 		default      => $link,
@@ -110,6 +121,7 @@ add_filter( 'post_type_link', 'torasake_post_type_link', 10, 2 );
 function torasake_post_type_archive_link( $link, string $post_type ) {
 	return match ( $post_type ) {
 		'brewery'   => home_url( '/breweries/' ),
+		'event'     => home_url( '/events/' ),
 		'blog_post' => home_url( '/blog/' ),
 		default     => $link,
 	};
@@ -137,6 +149,8 @@ function torasake_redirect_legacy_index(): void {
 		'/past/index.html'      => '/past/',
 		'/breweries/index.html' => '/breweries/',
 		'/blog/index.html'      => '/blog/',
+		'/events/index.html'    => '/events/',
+		'/sponsors/index.html'  => '/sponsors/',
 	);
 
 	if ( ! isset( $map[ $path ] ) ) {
@@ -164,7 +178,7 @@ add_action( 'template_redirect', 'torasake_redirect_legacy_index', 1 );
  * @return string|false
  */
 function torasake_disable_canonical_redirect( $redirect_url, $requested_url ) {
-	if ( is_singular( array( 'post', 'brewery' ) ) ) {
+	if ( is_singular( array( 'post', 'brewery', 'event' ) ) ) {
 		return false;
 	}
 	return $redirect_url;
@@ -229,6 +243,13 @@ function torasake_activate(): void {
 
 	// /past/ ── 過去開催アーカイブの受け口。
 	torasake_ensure_page( 'past', '過去のイベント' );
+
+	// /sponsors/ ── 協賛ページ。
+	// ACF の page_template ロケーションに当てるため、テンプレートを明示的に割り当てる。
+	$sponsors_id = torasake_ensure_page( 'sponsors', '協賛について' );
+	if ( $sponsors_id && 'page-sponsors.php' !== get_page_template_slug( $sponsors_id ) ) {
+		update_post_meta( $sponsors_id, '_wp_page_template', 'page-sponsors.php' );
+	}
 
 	torasake_register_post_types();
 	torasake_register_taxonomies();

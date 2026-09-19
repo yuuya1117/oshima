@@ -69,6 +69,28 @@ function torasake_enqueue_assets(): void {
 		return;
 	}
 
+	if ( is_singular( 'event' ) ) {
+		torasake_style( 'event-single' );
+		return;
+	}
+
+	if ( is_singular( 'past_event' ) ) {
+		torasake_style( 'past-event' );
+		torasake_script( 'past-event' );
+		torasake_script( 'nav-toggle' );
+		return;
+	}
+
+	if ( is_singular( 'blog_post' ) ) {
+		torasake_style( 'blog-single' );
+		return;
+	}
+
+	if ( is_page_template( 'page-sponsors.php' ) || is_page( 'sponsors' ) ) {
+		torasake_style( 'sponsors' );
+		return;
+	}
+
 	if ( is_home() || is_category() || is_archive() ) {
 		torasake_style( 'news-archive' );
 		torasake_script( 'news-archive' );
