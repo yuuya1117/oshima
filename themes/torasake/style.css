@@ -1,0 +1,16 @@
+/*
+Theme Name: TORASAKE
+Theme URI: https://torasake.com/
+Description: TORASAKE -虎ノ酒- フルカスタムテーマ。既存URLを1本も変えない移行方式（方式A）に対応。
+Version: 1.0.0
+Requires at least: 6.4
+Requires PHP: 8.1
+Text Domain: torasake
+*/
+
+/*
+ * このファイルはテーマ識別用のヘッダーのみを持つ。
+ * 実スタイルは assets/css/ 配下にテンプレート別で分割してある。
+ * 参照HTML（docs/design_handoff_wordpress/reference/）の :root は
+ * ページごとに値が異なるため、統一せず逐語で保持している。
+ */

@@ -1,0 +1,1014 @@
+{
+    "key": "group_event",
+    "title": "イベント",
+    "fields": [
+        {
+            "key": "field_event_event_status",
+            "label": "開催ステータス",
+            "name": "event_status",
+            "type": "select",
+            "instructions": "開催予定 / 開催中 のイベントが1件あれば、それがトップページの告知になる。終了にするとスティッキーCTAとチケットセクションが消える。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "開催予定": "開催予定",
+                "開催中": "開催中",
+                "終了": "終了"
+            },
+            "default_value": "開催予定",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_event_event_date",
+            "label": "開催日",
+            "name": "event_date",
+            "type": "date_picker",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "display_format": "Y年n月j日",
+            "return_format": "Ymd",
+            "first_day": 0
+        },
+        {
+            "key": "field_event_event_time_range",
+            "label": "開催時間（表示用）",
+            "name": "event_time_range",
+            "type": "text",
+            "instructions": "例: 17:00-23:00",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "34",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_event_event_start_time",
+            "label": "開始時刻（カウントダウン用）",
+            "name": "event_start_time",
+            "type": "time_picker",
+            "instructions": "例: 17:00",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "display_format": "H:i",
+            "return_format": "H:i"
+        },
+        {
+            "key": "field_event_event_end_time",
+            "label": "終了時刻",
+            "name": "event_end_time",
+            "type": "time_picker",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "display_format": "H:i",
+            "return_format": "H:i"
+        },
+        {
+            "key": "field_event_venue_name",
+            "label": "会場名",
+            "name": "venue_name",
+            "type": "text",
+            "instructions": "例: 虎ノ門ヒルズ ステーションタワー B2F T-MARKET",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_event_venue_address",
+            "label": "住所",
+            "name": "venue_address",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_event_venue_access",
+            "label": "アクセス",
+            "name": "venue_access",
+            "type": "text",
+            "instructions": "例: 東京メトロ日比谷線 虎ノ門ヒルズ駅 直結",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_event_venue_map_url",
+            "label": "会場マップURL",
+            "name": "venue_map_url",
+            "type": "url",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_event_key_visual",
+            "label": "キービジュアル",
+            "name": "key_visual",
+            "type": "image",
+            "instructions": "16:9。全幅・トリミングなしで表示する。文言は画像に焼き込み済みの前提でHTML側に文字を重ねない。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all"
+        },
+        {
+            "key": "field_event_kv_alt",
+            "label": "KVの代替テキスト",
+            "name": "kv_alt",
+            "type": "text",
+            "instructions": "空なら「イベント名 開催日 会場名」で自動生成する。SEOのため日時・会場を含める。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_event_ticker_text",
+            "label": "ヒーロー上部の赤帯",
+            "name": "ticker_text",
+            "type": "text",
+            "instructions": "販売状況の一文。空なら赤帯ごと非表示。例: 🎟 チケット販売中 ─ 早割[限定100枚]は予定枚数に達し次第終了",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_event_hero_sake_label",
+            "label": "ヒーローバーの蔵数表示",
+            "name": "hero_sake_label",
+            "type": "text",
+            "instructions": "空なら参加酒蔵の件数から「全国◯蔵」を自動生成する。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_event_ticket_url",
+            "label": "チケット購入URL",
+            "name": "ticket_url",
+            "type": "url",
+            "instructions": "Peatix等。★ ?utm_source= を必ず残すこと（流入計測が切れる）。例: https://peatix.com/event/5186533?utm_source=hp",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_event_lead_heading",
+            "label": "About 見出し",
+            "name": "lead_heading",
+            "type": "text",
+            "instructions": "<br> で改行できる。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_event_lead_copy",
+            "label": "About リード",
+            "name": "lead_copy",
+            "type": "textarea",
+            "instructions": "<span class=\"em\"> で赤字強調できる。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_event_lead_body",
+            "label": "About 補足",
+            "name": "lead_body",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_event_lead_points",
+            "label": "About 指標カード",
+            "name": "lead_points",
+            "type": "repeater",
+            "instructions": "3枚まで表示する。数値はハードコードせずここから入れる。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "カードを追加",
+            "sub_fields": [
+                {
+                    "key": "field_pt_label_en",
+                    "label": "英字ラベル",
+                    "name": "label_en",
+                    "type": "text",
+                    "instructions": "例: SCALE / BREWERIES / PAIRING",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "30",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_pt_value",
+                    "label": "数値",
+                    "name": "value",
+                    "type": "text",
+                    "instructions": "例: 300-500名 / 10蔵 / T-MARKET",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "30",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_pt_body",
+                    "label": "説明",
+                    "name": "body",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "40",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "rows": 2,
+                    "new_lines": ""
+                }
+            ]
+        },
+        {
+            "key": "field_event_outline",
+            "label": "開催概要カード",
+            "name": "outline",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "",
+            "min": 0,
+            "max": 0,
+            "layout": "block",
+            "button_label": "カードを追加",
+            "sub_fields": [
+                {
+                    "key": "field_ol_key_en",
+                    "label": "英字ラベル",
+                    "name": "key_en",
+                    "type": "text",
+                    "instructions": "例: DATE & TIME / VENUE / STYLE / TICKET",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_ol_value",
+                    "label": "内容",
+                    "name": "value",
+                    "type": "text",
+                    "instructions": "<br> で改行できる。",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "40",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_ol_note",
+                    "label": "補足",
+                    "name": "note",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "35",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "rows": 2,
+                    "new_lines": ""
+                }
+            ]
+        },
+        {
+            "key": "field_event_breweries",
+            "label": "参加酒蔵",
+            "name": "breweries",
+            "type": "relationship",
+            "instructions": "トップの蔵グリッドと蔵数の算出に使う。下書きの蔵はリンクなしのタイルになる。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "brewery"
+            ],
+            "taxonomy": [],
+            "filters": [
+                "search",
+                "post_type"
+            ],
+            "elements": [],
+            "min": "",
+            "max": "",
+            "return_format": "object"
+        },
+        {
+            "key": "field_event_brewery_section_sub",
+            "label": "参加酒蔵セクションの補足",
+            "name": "brewery_section_sub",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_event_food_image",
+            "label": "料理／会場の写真",
+            "name": "food_image",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all"
+        },
+        {
+            "key": "field_event_food_image_position",
+            "label": "写真の表示位置",
+            "name": "food_image_position",
+            "type": "text",
+            "instructions": "CSS の object-position。例: 50% 26%",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "50% 50%",
+            "placeholder": ""
+        },
+        {
+            "key": "field_event_food_heading",
+            "label": "料理セクション見出し",
+            "name": "food_heading",
+            "type": "text",
+            "instructions": "<br> で改行できる。空ならセクションごと非表示。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_event_food_body",
+            "label": "料理セクション本文",
+            "name": "food_body",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "rows": 4,
+            "new_lines": ""
+        },
+        {
+            "key": "field_event_ticket_section_title",
+            "label": "チケット見出し",
+            "name": "ticket_section_title",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "チケット販売中",
+            "placeholder": ""
+        },
+        {
+            "key": "field_event_ticket_section_sub",
+            "label": "チケット補足",
+            "name": "ticket_section_sub",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_event_tickets",
+            "label": "券種",
+            "name": "tickets",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "field_tk_name",
+            "min": 0,
+            "max": 0,
+            "layout": "block",
+            "button_label": "券種を追加",
+            "sub_fields": [
+                {
+                    "key": "field_tk_label_en",
+                    "label": "英字ラベル",
+                    "name": "label_en",
+                    "type": "text",
+                    "instructions": "例: EARLY BIRD / EARLY ENTRY / ADVANCE",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_tk_name",
+                    "label": "券種名",
+                    "name": "name",
+                    "type": "text",
+                    "instructions": "例: 早割チケット",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_tk_price",
+                    "label": "価格（円）",
+                    "name": "price",
+                    "type": "number",
+                    "instructions": "★ここは価格を出してよい数少ない箇所（CLAUDE.md）。",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "min": "",
+                    "max": "",
+                    "step": 1
+                },
+                {
+                    "key": "field_tk_entry_time",
+                    "label": "入場時刻",
+                    "name": "entry_time",
+                    "type": "text",
+                    "instructions": "例: 17:00",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_tk_limit_label",
+                    "label": "枚数バッジ",
+                    "name": "limit_label",
+                    "type": "text",
+                    "instructions": "例: 限定100枚。空ならバッジ非表示。",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_tk_is_featured",
+                    "label": "おすすめ（赤枠＋リボン）",
+                    "name": "is_featured",
+                    "type": "true_false",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": 0,
+                    "ui": 1,
+                    "ui_on_text": "",
+                    "ui_off_text": ""
+                },
+                {
+                    "key": "field_tk_note",
+                    "label": "注記",
+                    "name": "note",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "rows": 2,
+                    "new_lines": ""
+                },
+                {
+                    "key": "field_tk_purchase_url",
+                    "label": "購入URL",
+                    "name": "purchase_url",
+                    "type": "url",
+                    "instructions": "空ならイベント共通のチケットURLを使う。UTMを落とさないこと。",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": ""
+                }
+            ]
+        },
+        {
+            "key": "field_event_ticket_includes",
+            "label": "全券共通特典",
+            "name": "ticket_includes",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "特典を追加",
+            "sub_fields": [
+                {
+                    "key": "field_incl_text",
+                    "label": "特典",
+                    "name": "text",
+                    "type": "text",
+                    "instructions": "例: イベント専用500円コイン × 3枚",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "70",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_incl_note",
+                    "label": "補足",
+                    "name": "note",
+                    "type": "text",
+                    "instructions": "例: ［1,500円分］",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "30",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": ""
+                }
+            ]
+        },
+        {
+            "key": "field_event_ticket_notes",
+            "label": "チケット注意書き",
+            "name": "ticket_notes",
+            "type": "textarea",
+            "instructions": "改行がそのまま反映される。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_event_sticky_cta_text",
+            "label": "スティッキーCTAの文言",
+            "name": "sticky_cta_text",
+            "type": "text",
+            "instructions": "<b> で強調できる。event_status が終了のときは表示しない。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_event_theme_body",
+            "label": "テーマ説明（イベント個別ページ用）",
+            "name": "theme_body",
+            "type": "wysiwyg",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
+            "key": "field_event_howto_steps",
+            "label": "参加方法ステップ",
+            "name": "howto_steps",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "ステップを追加",
+            "sub_fields": [
+                {
+                    "key": "field_howto_title",
+                    "label": "見出し",
+                    "name": "title",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "30",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_howto_body",
+                    "label": "説明",
+                    "name": "body",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "70",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "rows": 2,
+                    "new_lines": ""
+                }
+            ]
+        },
+        {
+            "key": "field_event_sponsors",
+            "label": "スポンサー",
+            "name": "sponsors",
+            "type": "relationship",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "sponsor"
+            ],
+            "taxonomy": [],
+            "filters": [
+                "search",
+                "post_type"
+            ],
+            "elements": [],
+            "min": "",
+            "max": "",
+            "return_format": "object"
+        },
+        {
+            "key": "field_event_ticket_price",
+            "label": "チケット代表価格",
+            "name": "ticket_price",
+            "type": "number",
+            "instructions": "イベント個別ページの表示用。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "min": "",
+            "max": "",
+            "step": 1
+        },
+        {
+            "key": "field_event_ticket_note",
+            "label": "チケット注意事項",
+            "name": "ticket_note",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_event_seo_title",
+            "label": "SEO: タイトル上書き",
+            "name": "seo_title",
+            "type": "text",
+            "instructions": "現行HTMLの <title> をそのまま移す欄。空なら投稿タイトルから組み立てる。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_event_seo_description",
+            "label": "SEO: meta description",
+            "name": "seo_description",
+            "type": "textarea",
+            "instructions": "現行HTMLの meta description をそのまま移す。書き換えると順位が動くので移行時は原文のまま。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_event_seo_og_image",
+            "label": "SEO: OGP画像",
+            "name": "seo_og_image",
+            "type": "image",
+            "instructions": "空ならアイキャッチを使う。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "event"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "価格を表示してよいのはトップのチケットセクションと event 配下だけ。",
+    "show_in_rest": 0,
+    "modified": 1758283200
+}

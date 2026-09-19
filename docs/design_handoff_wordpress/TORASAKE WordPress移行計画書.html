@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TORASAKE WordPress移行計画書</title>
+<style>doc-page:not(:defined){visibility:hidden}</style>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700;900&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body { font-family: 'Noto Sans JP', sans-serif; color: #1a1a2e; }
+  h1, h2, h3 { font-family: 'Noto Serif JP', serif; }
+  h1 { font-size: 26px; margin-bottom: 4px; }
+  .subtitle { color: #5a6a78; font-size: 13px; margin-bottom: 28px; }
+  h2 { font-size: 18px; margin: 32px 0 12px; padding-bottom: 6px; border-bottom: 2px solid #c8a060; }
+  h3 { font-size: 15px; margin: 18px 0 6px; color: #a07840; }
+  p, li { font-size: 13.5px; line-height: 1.85; }
+  ul, ol { margin: 6px 0 12px 22px; }
+  table { border-collapse: collapse; width: 100%; margin: 10px 0 18px; font-size: 12.5px; }
+  th, td { border: 1px solid #d8dee2; padding: 6px 9px; text-align: left; vertical-align: top; }
+  th { background: #f4f9fd; font-family: 'Noto Sans JP', sans-serif; }
+  .note { background: #fdf6e8; border-left: 3px solid #c8a060; padding: 10px 14px; font-size: 12.5px; margin: 12px 0; }
+  .warn { background: #fdeceb; border-left: 3px solid #e63329; padding: 10px 14px; font-size: 12.5px; margin: 12px 0; }
+  .phase { background: #f4f9fd; border: 1px solid #d8dee2; border-radius: 6px; padding: 12px 16px; margin-bottom: 10px; }
+  .phase h3 { margin-top: 0; }
+  code { background: #eef2f4; padding: 1px 5px; border-radius: 3px; font-size: 12px; }
+</style>
+</head>
+<body>
+<doc-page size="a4" margin="20mm">
+
+<h1>TORASAKE WordPress移行計画書</h1>
+<div class="subtitle">torasake.com 静的サイト → WordPress（フルカスタムテーマ）移行 / 2026年9月改訂（v6デザイン対応）</div>
+
+<div class="warn"><strong>この版での主な更新。</strong>① トップページの参照デザインを <strong>v6（TORASAKE mini 告知版）</strong>に変更。② 本番サイトを実地確認し、公開済みURLを確定（<code>/</code>・<code>/news/</code>5本・<code>/past/</code>）。③ URL方針を「301で整理」から<strong>「既存URLを変えない」</strong>に変更。④ チケットはPeatix外部販売。詳細は同梱 <code>URL移行マップ.md</code> と <code>README.md</code>。</div>
+
+<h2>1. 目的とゴール</h2>
+<p>現状、torasake.comは静的HTMLで構築されている。長期運営・継続開催イベントとして育てていくため、以下を目的にWordPress化する。</p>
+<ul>
+  <li>酒蔵・イベント・ニュース・スポンサー・過去開催情報を、開発者を介さず継続的に更新できるようにする</li>
+  <li>1日1,000人以上の来場を狙う規模のイベント告知に耐える運用体制（更新頻度・SEO・表示速度）を整える</li>
+  <li>年1〜2回の大型イベント（出展30蔵以上）と、小規模なミニイベント（300〜500名・10蔵前後）の両方を同じ仕組みで運用できるようにする（開催頻度は未確定のため「月次」等の断定した表現はサイト上で使わない）</li>
+</ul>
+
+<h2>2. 現状サイトの構成（移行対象）</h2>
+<p><strong>注意：本番に公開されているのは下表の「公開済」の行だけ。</strong>酒蔵・ブログ・協賛ページは本プロジェクトで新規設計したもので、まだ公開されていない（新規なURLなので移行制約はない）。</p>
+<table>
+<tr><th>ページ種別</th><th>現状</th><th>公開状況</th></tr>
+<tr><td>トップページ</td><td><code>/</code> は現在 <strong>6/27開催のイベントLP（1ページ完結・アンカー構成）</strong>。差し替え先のデザインは <code>reference/top-page.html</code>（v6 / TORASAKE mini 告知）</td><td>公開済</td></tr>
+<tr><td>お知らせ</td><td><code>/news/index.html</code>（canonical <code>/news/</code>）＋記事5本（うち2本は日本語スラッグ）</td><td>公開済</td></tr>
+<tr><td>過去の開催レポート</td><td><code>/past/index.html</code>（canonical <code>/past/</code>）―「日本酒虎の巻 Vol.2」</td><td>公開済</td></tr>
+<tr><td>画像</td><td><code>/uploads/</code> 直下（OGP画像を含む）</td><td>公開済</td></tr>
+<tr><td>参加酒蔵一覧・詳細</td><td>一覧（検索・都道府県/開催回フィルタ）＋詳細33件</td><td>未公開（新規）</td></tr>
+<tr><td>イベント告知テンプレート</td><td><code>events/_テンプレート.html</code></td><td>未公開（新規）</td></tr>
+<tr><td>ブログ・協賛</td><td><code>/blog/</code>、<code>/sponsors/</code></td><td>未公開（新規）</td></tr>
+</table>
+<p>チケット販売は外部の <strong>Peatix</strong>。TORASAKE mini は <code>https://peatix.com/event/5186533?utm_source=hp</code>。UTMパラメータを落とすと流入計測が切れるので必ず踏襲すること。</p>
+<p>各ページ群でトーン&カラー（トップ＝紺＋金の重厚な世界観、一覧/記事系＝水色系の明るいトーン）を使い分けている。この視覚言語はテーマ実装時にそのまま踏襲する。</p>
+
+<div class="note">既存ルール：<strong>参加酒蔵一覧・詳細ページには価格を表示しない。</strong>酒蔵CPTのテンプレート・ACFフィールドに価格系フィールドを含めないこと。（イベント告知ページのチケット価格は対象外）</div>
+
+<h2>3. WordPressサイト構造設計</h2>
+
+<h3>3-1. カスタム投稿タイプ（CPT）</h3>
+<table>
+<tr><th>CPT</th><th>用途</th><th>主なACFフィールド</th></tr>
+<tr><td><code>brewery</code>（酒蔵）</td><td>参加酒蔵ディレクトリ＋詳細ページ</td>
+<td>読み方/英語表記、創業年、キャッチコピー、ロゴ画像、公式サイトURL、Instagram URL、蔵の物語（リッチテキスト）、出展銘柄リピーター（番号・種別・ボトル画像・銘柄名・和英名・説明・タグ・アクセントカラー）、基本情報メタテーブル（所在地/創業/代表銘柄/特徴等の可変dl）</td></tr>
+<tr><td><code>event</code>（イベント）</td><td>ミニイベント・大型イベントの告知ページ</td>
+<td>開催日時（カウントダウン用の日時値）、会場・アクセス、キービジュアル画像（16:9）、ティッカー文言、リード文、指標カード3枚（規模/蔵数/ペアリング）、開催概要リピーター、参加酒蔵（brewery リレーション）、<strong>券種リピーター（名称・価格・入場時刻・限定枚数・註・購入URL・推しフラグ）</strong>、共通特典リピーター、注意書き、スポンサー、開催ステータス（開催予定/開催中/終了）</td></tr>
+<tr><td><code>news_post</code>（お知らせ）※標準投稿でも可</td><td>お知らせ・開催報告・イベントガイド</td>
+<td>カテゴリー（タクソノミー：開催報告/お知らせ/イベントガイド）、抜粋、本文</td></tr>
+<tr><td><code>blog_post</code>（蔵元インタビュー等）</td><td>動画＋文章のアーカイブ記事</td>
+<td>YouTube動画ID、関連酒蔵（brewery リレーション）、引用（プルクオート＋発言者）、本文</td></tr>
+<tr><td><code>past_event</code>（過去開催レポート）</td><td>過去イベントの実績まとめ</td>
+<td>開催日/会場、集計数値リピーター（数値＋ラベル、例：来場者数・出展蔵数）、レポート本文、写真ギャラリー</td></tr>
+<tr><td><code>sponsor</code>（協賛企業）</td><td>ロゴ・ティア管理。event / トップページから参照</td>
+<td>企業名、ロゴ、ティア（タイトル/サポーター）、リンクURL</td></tr>
+</table>
+
+<h3>3-2. タクソノミー</h3>
+<ul>
+  <li><strong>都道府県</strong>（brewery用）— 一覧ページの都道府県フィルタに使用</li>
+  <li><strong>開催回</strong>（brewery・event 共通）— 現在は <code>torasake-2026</code>（2026.06.27／32蔵）と <code>torasake-mini-2026</code>（2026.10.16／10蔵）の2ターム。1蔵が複数回に属す</li>
+  <li><strong>お知らせカテゴリー</strong>（news_post用）— 開催報告／お知らせ／イベントガイド</li>
+</ul>
+
+<h3>3-3. テンプレート対応表</h3>
+<table>
+<tr><th>WPテンプレート</th><th>元HTML（デザイン参照）</th></tr>
+<tr><td>front-page.php</td><td><code>reference/top-page.html</code>（v6 / TORASAKE mini 告知版）— Hero(KV全幅)・About・開催概要・参加酒蔵・料理・<strong>チケット</strong>・アーカイブ・News・スティッキーCTA</td></tr>
+<tr><td>archive-brewery.php</td><td><code>reference/brewery-archive.html</code>（検索・フィルタJSは踏襲し、データはWP_Queryに置換。開催回セレクトは直近回を初期選択）</td></tr>
+<tr><td>single-brewery.php</td><td><code>reference/brewery-single.html</code> / <code>brewery-single-mini.html</code>（後者は出展銘柄未定の例）</td></tr>
+<tr><td>single-event.php</td><td>events/_テンプレート.html</td></tr>
+<tr><td>archive-news_post.php</td><td>news/index.html</td></tr>
+<tr><td>single-news_post.php</td><td>news/2026-07-03-event-report.html ほか</td></tr>
+<tr><td>single-blog_post.php</td><td>blog/_テンプレート.html</td></tr>
+<tr><td>single-past_event.php</td><td>past/index.html</td></tr>
+<tr><td>page-sponsors.php（固定ページ）</td><td>sponsors/index.html</td></tr>
+</table>
+<p>これらのHTML/CSSは<strong>デザイン参照であり、そのまま流用するテンプレートではない</strong>。開発者がPHP＋WPループとして再実装する。詳細は同梱の開発ハンドオフ資料を参照。</p>
+
+<h2>4. プラグイン・技術構成案</h2>
+<ul>
+  <li><strong>ACF Pro</strong> — カスタムフィールド・リピーター・リレーション管理</li>
+  <li><strong>Custom Post Type UI</strong>（またはコードでCPT登録）</li>
+  <li><strong>Yoast SEO</strong>または<strong>Rank Math</strong> — 既存の構造化データ（Organization/BreadcrumbList等）とOGPを引き継ぐ</li>
+  <li><strong>キャッシュ系プラグイン</strong>（WP Rocket等）＋画像最適化 — 1日1,000人規模のアクセスに耐えるための必須項目</li>
+  <li>お問い合わせフォーム（Contact Form 7 / WPForms）— 協賛問い合わせ用</li>
+</ul>
+
+<h2>5. SEO・既存資産の引き継ぎ（最重要）</h2>
+<div class="warn"><strong>既存URLを変えないことを最優先要件とする。</strong>現行サイトはすでにインデックスされており、アクセス資産を失うリスクは許容しない。<code>.html</code> 付きURLをそのまま正規URLとして維持する「方式A」を採用。リライトルールと全URLリストは同梱 <code>URL移行マップ.md</code> を参照（実装前に必読）。</div>
+<ul>
+  <li>投稿スラッグは現行ファイル名と完全一致させる。<strong>日本語スラッグ2本</strong>（<code>2026-06-27-当日券</code> / <code>2026-05-21-開催決定</code>）は生の日本語で入力する</li>
+  <li>現行トップのアンカー（<code>#pairing</code> <code>#floormap</code> <code>#faq</code> 等）は外部から参照されている。これらを残すため、<strong>6/27のLPを <code>/past/torasake-2026/</code> に丸ごと保存</strong>してからトップをv6に差し替える</li>
+  <li>画像は <code>/uploads/</code> の旧パスを生かす（メディアライブラリに取り込むと <code>/wp-content/uploads/</code> に変わり、画像検索流入とOGPキャッシュが切れる）</li>
+  <li>各ページの <code>&lt;title&gt;</code> / meta description / OGP / 構造化データ（Organization・BreadcrumbList）は現行HTMLの記述をそのまま移植する</li>
+  <li><code>sitemap.xml</code> / <code>robots.txt</code> はSEOプラグイン側の自動生成に切り替え、公開直後にSearch Consoleへ再送信してカバレッジを1週間監視</li>
+</ul>
+
+<h2>6. スケジュール</h2>
+<div class="warn"><strong>目安の締切：2026年10月16日（TORASAKE mini 開催日）。</strong>チケットは既に発売済なので、<strong>告知トップ（front-page）を最優先</strong>で公開し、酒蔵一覧・ニュースは後続とする二段階リリースを推奨する。表示逸脱を避けるため、公開切替はステージングで全URLの200確認を済ませてから行うこと。</div>
+<div class="phase"><h3>Day 1｜設計確定</h3><p>CPT/ACF/タクソノミー確定、ステージング構築、<strong>URL移行マップのリライトルールを先に実装して既存URLが200を返すことを確認</strong></p></div>
+<div class="phase"><h3>Day 2-3｜テーマ実装（トップ・酒蔵）</h3><p>front-page（v6）、archive/single-brewery を実装。検索・フィルタJSをWP_Query＋REST/Ajaxに置換</p></div>
+<div class="phase"><h3>Day 4-5｜テーマ実装（イベント・ニュース・過去開催・スポンサー）</h3><p>残り全テンプレート実装。<strong>6/27のLPを /past/torasake-2026/ として保存</strong>。管理画面の入力UIを運用担当が実際に試す</p></div>
+<div class="phase"><h3>Day 6｜コンテンツ移行</h3><p>酒蔴33件・ニュース5本・過去開催をCPTへ流し込み。スラッグを既存ファイル名と一致させる。画像最適化</p></div>
+<div class="phase"><h3>Day 7｜QA・SEO・公開</h3><p>全URLの200/301確認、旧 /uploads/ 画像の疎通確認、表示速度計測、モバイル確認、構造化データ検証、サイトマップ再送信</p></div>
+
+<h2>7. 今後の運用に向けて</h2>
+<ul>
+  <li>年1〜2回の大型イベント（30蔵以上）については、開催回タクソノミーで酒蔵の出展履歴を蓄積し、回を重ねるごとに「参加酒蔵一覧」の資産価値を高める設計にする</li>
+  <li>ミニイベントは <code>event</code> CPTの軽量入力（テーマ・会場・少数蔵・券種）で運用者が自走できるようにする。<strong>新しい回を公開したらトップが自動でその告知に切り替わる</strong>設計とし、終了した回は past_event へ移す</li>
+  <li>1,000人/日規模の集客を目指すフェーズでは、公開後の表示速度・サーバー負荷のモニタリングを継続する</li>
+</ul>
+
+<h2>8. 同梱資料</h2>
+<ul>
+  <li><code>README.md</code> — CPT/ACF設計・デザイントークン・現在のイベントデータ</li>
+  <li><code>URL移行マップ.md</code> — <strong>実装前に必読。</strong>既存URL一覧とリライトルール</li>
+  <li><code>reference/</code> — デザイン確定版HTML（画像はプロジェクトルートの <code>uploads/</code> を参照するため、フォルダ構造を崩さずに扱うこと）</li>
+</ul>
+
+</doc-page>
+<script src="doc-page.js"></script>
+</body>
+</html>

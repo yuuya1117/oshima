@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>過去の開催 | 日本酒虎の巻 Vol.2 - TORASAKE 2026</title>
+<meta name="description" content="2025年10月8日に虎ノ門ヒルズで開催された前身イベント「日本酒虎の巻 Vol.2」の開催レポート。全国17蔵が集結し、800名の日本酒ファンで賑わいました。">
+<link rel="canonical" href="https://torasake.com/past/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="過去の開催 | 日本酒虎の巻 Vol.2">
+<meta property="og:description" content="前身イベント「日本酒虎の巻 Vol.2」の開催レポート。17蔵・800名で賑わいました。">
+<meta property="og:image" content="https://torasake.com/uploads/staff.jpg">
+
+<link rel="icon" type="image/png" href="../uploads/torasake_logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700;900&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #e8f5fb;
+  --bg2: #f4f9fd;
+  --bg3: #ffffff;
+  --gold: #c8a060;
+  --red: #e63329;
+  --red-dark: #b02020;
+  --text: #1a1a2e;
+  --text-dim: #5a6a78;
+  --border: rgba(90,140,180,0.25);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Serif JP', serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.8;
+}
+img { max-width: 100%; height: auto; display: block; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 3rem; height: 64px;
+  background: rgba(232,245,251,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(90,168,200,0.2);
+}
+.nav-logo img { height: 32px; }
+.nav-back {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.8rem; color: var(--text-dim);
+  text-decoration: none; letter-spacing: 0.1em;
+  transition: color 0.2s;
+}
+.nav-back:hover { color: var(--red); }
+
+/* Nav links */
+.nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+.nav-links a {
+  color: var(--text-dim); text-decoration: none; font-size: 0.8rem;
+  font-family: 'Noto Sans JP', sans-serif; font-weight: 500;
+  letter-spacing: 0.1em; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--red); }
+.nav-cta {
+  padding: 0.5rem 1.2rem; border: 1px solid var(--red);
+  color: var(--red) !important; border-radius: 20px;
+}
+.hamburger {
+  display: none;
+  background: none; border: none; cursor: pointer;
+  width: 32px; height: 32px;
+  padding: 0; position: relative; z-index: 110;
+}
+.hamburger span {
+  display: block; position: absolute;
+  left: 4px; right: 4px; height: 2px;
+  background: var(--text); border-radius: 1px;
+  transition: transform 0.3s, opacity 0.2s, top 0.3s;
+}
+.hamburger span:nth-child(1) { top: 10px; }
+.hamburger span:nth-child(2) { top: 15px; }
+.hamburger span:nth-child(3) { top: 20px; }
+.hamburger.open span:nth-child(1) { top: 15px; transform: rotate(45deg); background: var(--red); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { top: 15px; transform: rotate(-45deg); background: var(--red); }
+
+/* HERO */
+header.page-hero {
+  padding: 7rem 2rem 3rem;
+  text-align: center;
+  background: linear-gradient(180deg, #c2e8f8 0%, #eef8fd 100%);
+}
+.page-hero-eyebrow {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.75rem; font-weight: 500;
+  letter-spacing: 0.35em; color: var(--gold);
+  margin-bottom: 1rem;
+}
+.page-hero h1 {
+  font-size: 2.4rem; font-weight: 900;
+  letter-spacing: 0.08em; margin-bottom: 0.5rem;
+}
+.page-hero-sub {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.95rem; color: var(--text-dim);
+  letter-spacing: 0.1em;
+}
+
+/* CONTENT */
+main {
+  max-width: 900px; margin: 0 auto;
+  padding: 3rem 2rem 5rem;
+}
+
+.lead-photo {
+  margin-bottom: 3rem;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(95,168,200,0.2);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+.stat {
+  background: #fff;
+  border: 1px solid var(--border);
+  padding: 1.5rem 1rem;
+  text-align: center;
+  border-radius: 4px;
+}
+.stat-num {
+  font-size: 2.4rem; font-weight: 900;
+  color: var(--red); line-height: 1;
+}
+.stat-num small { font-size: 1rem; font-weight: 400; margin-left: 0.2em; }
+.stat-label {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.75rem; color: var(--text-dim);
+  letter-spacing: 0.15em; margin-top: 0.6rem;
+}
+
+h2.section-h {
+  font-size: 1.5rem; font-weight: 700;
+  letter-spacing: 0.1em;
+  padding-bottom: 0.8rem; margin: 3rem 0 1.5rem;
+  border-bottom: 2px solid var(--gold);
+  position: relative;
+}
+h2.section-h::before {
+  content: ''; display: inline-block;
+  width: 4px; height: 1.3rem;
+  background: var(--red); margin-right: 0.7rem;
+  vertical-align: -0.15em;
+}
+
+p.body {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.95rem; line-height: 2;
+  margin-bottom: 1.2rem;
+  color: var(--text);
+}
+p.body strong { color: var(--red); font-weight: 700; }
+
+.info-list {
+  background: var(--bg2);
+  border-left: 3px solid var(--gold);
+  padding: 1.5rem 1.5rem;
+  margin: 1.5rem 0 2rem;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+.info-list dt {
+  font-size: 0.75rem; color: var(--gold);
+  letter-spacing: 0.2em; font-weight: 700;
+  margin-bottom: 0.2rem;
+}
+.info-list dd {
+  font-size: 0.95rem;
+  margin-bottom: 1rem; color: var(--text);
+}
+.info-list dd:last-child { margin-bottom: 0; }
+.info-list a { color: var(--red); }
+
+/* GALLERY */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.6rem;
+  margin: 2rem 0 3rem;
+}
+.gallery-item {
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.gallery-item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s;
+}
+.gallery-item:hover { box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+.gallery-item:hover img { transform: scale(1.06); }
+
+.gallery-item.featured { grid-column: span 2; grid-row: span 2; aspect-ratio: 1; }
+
+/* LIGHTBOX */
+.lightbox {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(0,0,0,0.92);
+  display: none; align-items: center; justify-content: center;
+  cursor: pointer; padding: 2rem;
+}
+.lightbox.active { display: flex; }
+.lightbox img { max-width: 95vw; max-height: 90vh; border-radius: 4px; }
+.lightbox-close {
+  position: absolute; top: 1.5rem; right: 2rem;
+  color: #fff; font-size: 2rem; cursor: pointer;
+  background: none; border: none;
+}
+
+/* CTA */
+.cta-wrap {
+  margin-top: 4rem;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  background: linear-gradient(135deg, var(--bg2), var(--bg));
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+.cta-wrap h3 {
+  font-size: 1.5rem; font-weight: 700;
+  letter-spacing: 0.08em; margin-bottom: 0.6rem;
+}
+.cta-wrap p {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.85rem; color: var(--text-dim);
+  margin-bottom: 1.5rem;
+}
+.cta-btn {
+  display: inline-block;
+  padding: 0.9rem 2.5rem;
+  background: linear-gradient(135deg, #f04040, var(--red));
+  color: #fff;
+  font-family: 'Noto Sans JP', sans-serif; font-weight: 700;
+  letter-spacing: 0.2em; font-size: 0.85rem;
+  text-decoration: none; border-radius: 2px;
+  box-shadow: 0 4px 20px rgba(230,51,41,0.3);
+  transition: transform 0.15s;
+}
+.cta-btn:hover { transform: translateY(-2px); }
+
+/* FOOTER */
+footer {
+  background: #020810;
+  padding: 2rem;
+  text-align: center;
+}
+footer p {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.7rem; color: var(--text-dim);
+  letter-spacing: 0.15em;
+}
+
+@media (max-width: 768px) {
+  nav { padding: 0 1rem; }
+  .hamburger { display: block; }
+  .nav-back { display: none; }
+  .nav-links {
+    position: fixed;
+    top: 64px; left: 0; right: 0;
+    background: rgba(232,245,251,0.98);
+    backdrop-filter: blur(12px);
+    flex-direction: column; gap: 0;
+    padding: 1rem 1.5rem 2rem;
+    border-bottom: 1px solid rgba(90,168,200,0.2);
+    transform: translateY(-110%);
+    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    align-items: stretch;
+  }
+  .nav-links.open { transform: translateY(0); }
+  .nav-links li {
+    width: 100%;
+    border-bottom: 1px solid rgba(90,168,200,0.15);
+    list-style: none;
+  }
+  .nav-links li:last-child { border-bottom: none; }
+  .nav-links a {
+    display: block;
+    padding: 1rem 0.5rem;
+    font-size: 0.95rem; letter-spacing: 0.15em;
+  }
+  .nav-links .nav-cta {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.7rem 1.5rem;
+  }
+  .page-hero { padding: 5rem 1rem 2rem; }
+  .page-hero h1 { font-size: 1.6rem; }
+  main { padding: 2rem 1rem 3rem; }
+  .stats { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+  .stat { padding: 1rem 0.5rem; }
+  .stat-num { font-size: 1.6rem; }
+  .stat-label { font-size: 0.65rem; letter-spacing: 0.1em; }
+  .gallery { grid-template-columns: repeat(2, 1fr); gap: 0.4rem; }
+  .gallery-item.featured { grid-column: span 2; grid-row: span 1; aspect-ratio: 4/3; }
+  h2.section-h { font-size: 1.2rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="../index.html"><img src="../uploads/torasake_logo.png" alt="TORASAKE"></a>
+  <a class="nav-back" href="../index.html">← トップへ戻る</a>
+  <button class="hamburger" id="hamburger" aria-label="メニューを開く" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="../index.html">トップ</a></li>
+    <li><a href="../index.html#breweries">参加酒蔵</a></li>
+    <li><a href="../index.html#access">アクセス</a></li>
+    <li><a href="../news/index.html">お知らせ</a></li>
+    <li><a href="../past/index.html">過去のイベント</a></li>
+    <li><a href="https://torasake.peatix.com/?utm_source=website" target="_blank" rel="noopener" class="nav-cta">チケット購入</a></li>
+  </ul>
+</nav>
+
+<header class="page-hero">
+  <div class="page-hero-eyebrow">PAST EVENT REPORT</div>
+  <h1>日本酒虎の巻 Vol.2</h1>
+  <p class="page-hero-sub">2025年10月8日 開催</p>
+</header>
+
+<main>
+  <div class="lead-photo">
+    <img src="../uploads/staff.jpg" alt="日本酒虎の巻 Vol.2 集合写真" />
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num">17<small>蔵</small></div>
+      <div class="stat-label">参加酒蔵</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">800<small>名</small></div>
+      <div class="stat-label">来場者数</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">1<small>日</small></div>
+      <div class="stat-label">熱い一日</div>
+    </div>
+  </div>
+
+  <h2 class="section-h">開催概要</h2>
+  <dl class="info-list">
+    <dt>EVENT</dt>
+    <dd>日本酒虎の巻 Vol.2</dd>
+    <dt>DATE</dt>
+    <dd>2025年10月8日（水）</dd>
+    <dt>VENUE</dt>
+    <dd>虎ノ門ヒルズ ステーションタワー</dd>
+    <dt>PARTICIPATING BREWERIES</dt>
+    <dd>全国17蔵</dd>
+    <dt>ATTENDANCE</dt>
+    <dd>800名</dd>
+    <dt>MEDIA</dt>
+    <dd><a href="https://jp.sake-times.com/special/press/p_202509_nihonshu-toranomaki" target="_blank" rel="noopener">SAKETIMES（外部リンク）</a></dd>
+  </dl>
+
+  <h2 class="section-h">当日の様子</h2>
+  <p class="body">
+    2025年10月、虎ノ門ヒルズ ステーションタワーにて開催した「日本酒虎の巻 Vol.2」には、全国から<strong>17の酒蔵</strong>が集結。当日は<strong>800名</strong>を超える日本酒ファンにお越しいただき、各蔵のブースを巡りながら、蔵人と直接語り合う熱気あふれる一日となりました。
+  </p>
+  <p class="body">
+    会場内ではテイスティング、ペアリング、限定酒の販売など、多彩な体験コーナーを展開。蔵人と来場者が酒を介して言葉を交わす光景が、いたるところで見られました。
+  </p>
+
+  <div class="gallery" id="gallery">
+    <div class="gallery-item featured"><img src="../uploads/001.jpg" alt="会場の様子" loading="lazy"></div>
+    <div class="gallery-item"><img src="../uploads/002.jpg" alt="蔵元と来場者" loading="lazy"></div>
+    <div class="gallery-item"><img src="../uploads/003.jpg" alt="試飲ブース" loading="lazy"></div>
+    <div class="gallery-item"><img src="../uploads/004.jpg" alt="受付の様子" loading="lazy"></div>
+    <div class="gallery-item"><img src="../uploads/005.jpg" alt="賑わう会場" loading="lazy"></div>
+    <div class="gallery-item"><img src="../uploads/006.jpg" alt="蔵元ブース" loading="lazy"></div>
+    <div class="gallery-item"><img src="../uploads/007.jpg" alt="試飲コーナー" loading="lazy"></div>
+    <div class="gallery-item"><img src="../uploads/008.jpg" alt="乾杯の様子" loading="lazy"></div>
+  </div>
+
+  <h2 class="section-h">そして、2026年へ</h2>
+  <p class="body">
+    Vol.2 で得た学びと、来場者の皆様・蔵人の皆様からの温かいお声を糧に、私たちは次なるステージへ進みます。
+  </p>
+  <p class="body">
+    新たな名を冠した <strong>「TORASAKE -虎ノ酒- 2026」</strong>。参加蔵は<strong>31蔵</strong>へと大幅に拡大。さらに豊かで、より深く日本酒の世界に触れていただける一日をお届けします。
+  </p>
+
+  <div class="cta-wrap">
+    <h3>TORASAKE 2026 開催決定</h3>
+    <p>2026.6.27 SAT｜虎ノ門ヒルズ ステーションタワー｜全国31蔵集結</p>
+    <a href="https://torasake.peatix.com/?utm_source=website" target="_blank" rel="noopener" class="cta-btn">前売り券を購入</a>
+  </div>
+</main>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" aria-label="閉じる">×</button>
+  <img id="lightbox-img" alt="">
+</div>
+
+<footer>
+  <p>© 2026 TORASAKE -虎ノ酒- 実行委員会</p>
+</footer>
+
+<script>
+  // Lightbox
+  const gallery = document.getElementById('gallery');
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  gallery.addEventListener('click', (e) => {
+    const item = e.target.closest('.gallery-item');
+    if (!item) return;
+    lightboxImg.src = item.querySelector('img').src;
+    lightbox.classList.add('active');
+  });
+  lightbox.addEventListener('click', () => lightbox.classList.remove('active'));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') lightbox.classList.remove('active');
+  });
+
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('nav-links');
+  hamburger.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', isOpen);
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+/*
+ * お知らせ一覧（home.php）
+ *
+ * 出典: docs/design_handoff_wordpress/reference/news-archive.html の <style> を逐語移植。
+ * 色・余白・タイポは確定値。参照ごとに :root の値が異なるため統一しない。
+ */
+
+:root {
+  --bg: #e8f5fb; --bg2: #f4f9fd; --bg3: #ffffff;
+  --gold: #c8a060; --gold-dim: #a07840;
+  --red: #e63329; --red-bright: #f04040;
+  --text: #1a1a2e; --text-dim: #5a6a78;
+  --border: rgba(90,140,180,0.25);
+  --navy: #0d1929;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Noto Serif JP', serif; background: var(--bg); color: var(--text); line-height: 1.8; }
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+.mono { font-family: 'Noto Sans JP', sans-serif; }
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 3rem; height: 64px;
+  background: rgba(232,245,251,0.92); backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(90,168,200,0.2);
+}
+.nav-logo img { height: 30px; }
+.nav-back {
+  font-family: 'Noto Sans JP', sans-serif; font-size: 0.78rem; color: var(--text-dim);
+  text-decoration: none; letter-spacing: 0.08em; display: flex; align-items: center; gap: 0.4rem; white-space: nowrap;
+}
+.nav-back:hover { color: var(--red); }
+
+/* ─── HERO ─── */
+header.page-hero { padding: 9.5rem 2rem 2.6rem; text-align: center; background: linear-gradient(160deg, #c2e8f8 0%, #eef8fd 70%); }
+.page-hero-eyebrow {
+  font-family: 'Noto Sans JP', sans-serif; font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.4em; color: var(--gold-dim); text-transform: uppercase;
+}
+.page-hero h1 { font-size: clamp(1.8rem, 4vw, 2.3rem); font-weight: 900; letter-spacing: 0.05em; margin-top: 0.8rem; }
+
+/* ─── CATEGORY FILTER ─── */
+.filter-bar {
+  max-width: 760px; margin: 1.8rem auto 0; padding: 0 2rem;
+  display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap;
+}
+.filter-chip {
+  font-family: 'Noto Sans JP', sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.05em;
+  padding: 0.5rem 1.1rem; border-radius: 20px; border: 1px solid var(--border);
+  background: var(--bg3); color: var(--text-dim); cursor: pointer; transition: all 0.15s;
+  white-space: nowrap; flex-shrink: 0;
+}
+.filter-chip:hover { border-color: var(--gold); color: var(--gold-dim); }
+.filter-chip.active { background: var(--text); color: #fff; border-color: var(--text); }
+
+main { max-width: 760px; margin: 0 auto; padding: 2.6rem 2rem 5rem; }
+
+.news-list { list-style: none; }
+.news-item {
+  display: block; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px;
+  padding: 1.6rem 1.9rem; margin-bottom: 1.1rem; text-decoration: none; color: inherit;
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+}
+.news-item:hover { transform: translateY(-2px); box-shadow: 0 14px 34px -14px rgba(30,60,100,0.2); border-color: var(--gold); }
+.news-meta { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.7rem; font-family: 'Noto Sans JP', sans-serif; font-size: 0.74rem; }
+.news-date { color: var(--gold-dim); letter-spacing: 0.08em; font-weight: 700; }
+.news-tag { padding: 0.2rem 0.75rem; border-radius: 12px; letter-spacing: 0.06em; font-weight: 700; }
+.news-tag.cat-report { background: rgba(200,160,96,0.16); color: var(--gold-dim); }
+.news-tag.cat-info { background: rgba(230,51,41,0.1); color: var(--red); }
+.news-tag.cat-guide { background: rgba(90,140,180,0.12); color: #45647a; }
+.news-title { font-size: 1.12rem; font-weight: 700; letter-spacing: 0.03em; line-height: 1.5; margin-bottom: 0.5rem; }
+.news-excerpt { font-family: 'Noto Sans JP', sans-serif; font-size: 0.84rem; color: var(--text-dim); line-height: 1.8; }
+
+.empty-state { display: none; text-align: center; padding: 3rem 1rem; font-family: 'Noto Sans JP', sans-serif; color: var(--text-dim); }
+.empty-state.show { display: block; }
+
+footer { background: var(--navy); color: #c9d3da; padding: 3rem 2rem; text-align: center; font-family: 'Noto Sans JP', sans-serif; font-size: 0.78rem; }
+footer .fl { color: var(--gold); font-family: 'Noto Serif JP', serif; font-size: 1.1rem; letter-spacing: 0.2em; margin-bottom: 0.9rem; display: block; }
+
+@media (max-width: 768px) {
+  nav { padding: 0 1rem; }
+  header.page-hero { padding: 7.5rem 1.2rem 2rem; }
+  main { padding: 2rem 1.2rem 3rem; }
+  .news-item { padding: 1.3rem 1.3rem; }
+}
+
+/* ─────────────────────────────────────────────
+ * WordPress 実装で足した分（確定値は上を変更していない）
+ * ───────────────────────────────────────────── */
+
+#newsList > li[hidden] { display: none !important; }
+
+/* ページネーション。参照HTMLには無い（記事5本で1ページに収まっていたため）。 */
+.news-pagination { margin-top: 2.4rem; }
+.news-pagination .nav-links {
+  display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap;
+  font-family: 'Noto Sans JP', sans-serif; font-size: 0.82rem;
+}
+.news-pagination .page-numbers {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 2.2rem; height: 2.2rem; padding: 0 0.6rem;
+  border: 1px solid var(--border); border-radius: 18px;
+  background: var(--bg3); color: var(--text-dim); text-decoration: none;
+  transition: border-color 0.15s, color 0.15s;
+}
+.news-pagination .page-numbers:hover { border-color: var(--gold); color: var(--gold-dim); }
+.news-pagination .page-numbers.current {
+  background: var(--text); border-color: var(--text); color: #fff; font-weight: 700;
+}
+.news-pagination .page-numbers.dots { border-color: transparent; background: none; }
+
+.screen-reader-text {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}

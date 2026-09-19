@@ -1,0 +1,654 @@
+{
+    "key": "group_brewery",
+    "title": "酒蔵",
+    "fields": [
+        {
+            "key": "field_brewery_brand_name",
+            "label": "銘柄・ブランド名",
+            "name": "brand_name",
+            "type": "text",
+            "instructions": "例: 貴。投稿タイトルは蔵名（例: 永山本家酒造場）を入れる。トップの蔵グリッドと一覧の検索対象になる。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_brewery_brand_name_en",
+            "label": "銘柄（英字）",
+            "name": "brand_name_en",
+            "type": "text",
+            "instructions": "例: TAKA",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_brewery_brand_alias",
+            "label": "別名",
+            "name": "brand_alias",
+            "type": "text",
+            "instructions": "例: Domaine Taka",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "34",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_brewery_brand_name_kana",
+            "label": "銘柄（かな）",
+            "name": "brand_name_kana",
+            "type": "text",
+            "instructions": "例: たか。JSON-LD の alternateName に入る。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_brewery_region_en",
+            "label": "地域（英字）",
+            "name": "region_en",
+            "type": "text",
+            "instructions": "例: Yamaguchi。ヒーローの地域行に使う。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_brewery_city",
+            "label": "市区町村",
+            "name": "city",
+            "type": "text",
+            "instructions": "例: 宇部市。都道府県はタクソノミーで設定する。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_brewery_region_ja",
+            "label": "地域行の上書き",
+            "name": "region_ja",
+            "type": "text",
+            "instructions": "通常は空でよい（英字・都道府県・市区町村から自動で組む）。手で全文を指定したいときだけ使う。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_brewery_founded_year",
+            "label": "創業",
+            "name": "founded_year",
+            "type": "text",
+            "instructions": "例: 1888年（明治21年）。数字4桁を JSON-LD の foundingDate に使う。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_brewery_tagline",
+            "label": "タグライン",
+            "name": "tagline",
+            "type": "textarea",
+            "instructions": "ヒーローのリード文。<strong> で強調できる。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "rows": 4,
+            "new_lines": ""
+        },
+        {
+            "key": "field_brewery_logo",
+            "label": "蔵ロゴ",
+            "name": "logo",
+            "type": "image",
+            "instructions": "未登録の場合は蔵名を大きく組む wordmark にフォールバックする。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all"
+        },
+        {
+            "key": "field_brewery_official_url",
+            "label": "公式サイト",
+            "name": "official_url",
+            "type": "url",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_brewery_instagram_url",
+            "label": "Instagram",
+            "name": "instagram_url",
+            "type": "url",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_brewery_lineup_summary",
+            "label": "出展銘柄（一覧カード用の1行）",
+            "name": "lineup_summary",
+            "type": "text",
+            "instructions": "例: 貴 純米大吟醸。酒蔵一覧のカードとキーワード検索に使う。★価格は書かないこと。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_brewery_lineup_section_label",
+            "label": "銘柄セクションのラベル",
+            "name": "lineup_section_label",
+            "type": "text",
+            "instructions": "例: Featured Sake at TORASAKE mini",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_brewery_lineup_section_title",
+            "label": "銘柄セクションの見出し",
+            "name": "lineup_section_title",
+            "type": "text",
+            "instructions": "例: TORASAKEで出展する3銘柄 ── 夏の貴",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_brewery_sake_lineup",
+            "label": "出展銘柄",
+            "name": "sake_lineup",
+            "type": "repeater",
+            "instructions": "★価格は入力しない（CLAUDE.md: 酒蔵ページに価格を出さない）。空の場合は下の「代表銘柄」が代わりに表示される。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "field_sake_name_ja",
+            "min": 0,
+            "max": 0,
+            "layout": "block",
+            "button_label": "銘柄を追加",
+            "sub_fields": [
+                {
+                    "key": "field_sake_number_label",
+                    "label": "番号ラベル",
+                    "name": "number_label",
+                    "type": "text",
+                    "instructions": "例: No.01 ・ 微発泡",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "33",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_sake_type_label",
+                    "label": "種別バッジ",
+                    "name": "type_label",
+                    "type": "text",
+                    "instructions": "例: 特別純米 スパークリング",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "33",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_sake_accent_hue",
+                    "label": "アクセント色相",
+                    "name": "accent_hue",
+                    "type": "number",
+                    "instructions": "oklch の hue 角度（0-360）。銘柄ごとに変える。例: 230=青, 140=緑, 300=紫。明度・彩度は固定。",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "34",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "min": "",
+                    "max": "",
+                    "step": 1
+                },
+                {
+                    "key": "field_sake_bottle_image",
+                    "label": "ボトル画像",
+                    "name": "bottle_image",
+                    "type": "image",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "preview_size": "medium",
+                    "library": "all"
+                },
+                {
+                    "key": "field_sake_name_ja",
+                    "label": "銘柄名",
+                    "name": "name_ja",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_sake_name_en",
+                    "label": "銘柄名（英字）",
+                    "name": "name_en",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_sake_description",
+                    "label": "説明",
+                    "name": "description",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "rows": 4,
+                    "new_lines": ""
+                },
+                {
+                    "key": "field_sake_tags",
+                    "label": "味わいタグ",
+                    "name": "tags",
+                    "type": "repeater",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "collapsed": "",
+                    "min": 0,
+                    "max": 0,
+                    "layout": "table",
+                    "button_label": "タグを追加",
+                    "sub_fields": [
+                        {
+                            "key": "field_saketag_tag",
+                            "label": "タグ",
+                            "name": "tag",
+                            "type": "text",
+                            "instructions": "例: 微発泡 / 爽快 / 乾杯酒",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "key": "field_brewery_lineup_badge",
+            "label": "銘柄セクションの補足バッジ",
+            "name": "lineup_badge",
+            "type": "text",
+            "instructions": "例: ☀ 夏にぴったりの3本を、虎ノ門ヒルズで。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_brewery_flagship_name",
+            "label": "代表銘柄（出展銘柄が未定のとき）",
+            "name": "flagship_name",
+            "type": "text",
+            "instructions": "出展銘柄リピーターが空のときだけ表示される。例: 大信州",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_brewery_flagship_description",
+            "label": "代表銘柄の説明",
+            "name": "flagship_description",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "rows": 4,
+            "new_lines": ""
+        },
+        {
+            "key": "field_brewery_story_heading",
+            "label": "蔵の物語 見出し",
+            "name": "story_heading",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_brewery_story_body",
+            "label": "蔵の物語 本文",
+            "name": "story_body",
+            "type": "wysiwyg",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
+            "key": "field_brewery_meta_table",
+            "label": "基本情報",
+            "name": "meta_table",
+            "type": "repeater",
+            "instructions": "可変長の定義リスト。公式サイト・Instagram は上の専用欄から自動で末尾に追加されるのでここには書かない。★価格に類する項目は入力しない（CLAUDE.md）。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "行を追加",
+            "sub_fields": [
+                {
+                    "key": "field_meta_label",
+                    "label": "項目名",
+                    "name": "label",
+                    "type": "text",
+                    "instructions": "例: 所在地 / 創業 / 代表銘柄 / 使用酒米 / 仕込水",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "30",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_meta_value",
+                    "label": "内容",
+                    "name": "value",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "70",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": ""
+                }
+            ]
+        },
+        {
+            "key": "field_brewery_event_history",
+            "label": "参加イベント履歴",
+            "name": "event_history",
+            "type": "relationship",
+            "instructions": "空の場合は開催回タクソノミーから自動で拾う。手で並べたいときだけ設定する。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "event",
+                "past_event"
+            ],
+            "taxonomy": [],
+            "filters": [
+                "search",
+                "post_type"
+            ],
+            "elements": [],
+            "min": "",
+            "max": "",
+            "return_format": "object"
+        },
+        {
+            "key": "field_brewery_seo_title",
+            "label": "SEO: タイトル上書き",
+            "name": "seo_title",
+            "type": "text",
+            "instructions": "現行HTMLの <title> をそのまま移す欄。空なら投稿タイトルから組み立てる。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_brewery_seo_description",
+            "label": "SEO: meta description",
+            "name": "seo_description",
+            "type": "textarea",
+            "instructions": "現行HTMLの meta description をそのまま移す。書き換えると順位が動くので移行時は原文のまま。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_brewery_seo_og_image",
+            "label": "SEO: OGP画像",
+            "name": "seo_og_image",
+            "type": "image",
+            "instructions": "空ならアイキャッチを使う。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "brewery"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "★酒蔵一覧・詳細には一切価格を出さない（CLAUDE.md）。価格系のフィールドをこのグループに追加しないこと。",
+    "show_in_rest": 0,
+    "modified": 1758283200
+}

@@ -1,0 +1,276 @@
+/*
+ * お知らせ詳細（single.php）
+ *
+ * 出典: docs/design_handoff_wordpress/reference/news-single-example.html の <style> を逐語移植。
+ * 色・余白・タイポは確定値。参照ごとに :root の値が異なるため統一しない。
+ */
+
+:root {
+  --bg: #e8f5fb;
+  --bg2: #f4f9fd;
+  --bg3: #ffffff;
+  --gold: #c8a060;
+  --red: #e63329;
+  --text: #1a1a2e;
+  --text-dim: #5a6a78;
+  --border: rgba(90,140,180,0.25);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Noto Serif JP', serif;
+  background: var(--bg);
+  color: var(--text); line-height: 1.8;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 3rem; height: 64px;
+  background: rgba(232,245,251,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(90,168,200,0.2);
+}
+.nav-logo img { height: 32px; }
+.nav-back {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.8rem; color: var(--text-dim);
+  text-decoration: none; letter-spacing: 0.1em;
+}
+.nav-back:hover { color: var(--red); }
+.nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+.nav-links a {
+  color: var(--text-dim); text-decoration: none; font-size: 0.8rem;
+  font-family: 'Noto Sans JP', sans-serif; font-weight: 500;
+  letter-spacing: 0.1em; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--red); }
+.nav-cta {
+  padding: 0.5rem 1.2rem; border: 1px solid var(--red);
+  color: var(--red) !important; border-radius: 20px;
+}
+.hamburger {
+  display: none;
+  background: none; border: none; cursor: pointer;
+  width: 32px; height: 32px;
+  padding: 0; position: relative; z-index: 110;
+}
+.hamburger span {
+  display: block; position: absolute;
+  left: 4px; right: 4px; height: 2px;
+  background: var(--text); border-radius: 1px;
+  transition: transform 0.3s, opacity 0.2s, top 0.3s;
+}
+.hamburger span:nth-child(1) { top: 10px; }
+.hamburger span:nth-child(2) { top: 15px; }
+.hamburger span:nth-child(3) { top: 20px; }
+.hamburger.open span:nth-child(1) { top: 15px; transform: rotate(45deg); background: var(--red); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { top: 15px; transform: rotate(-45deg); background: var(--red); }
+
+header.page-hero {
+  padding: 7rem 2rem 3rem;
+  text-align: center;
+  background: linear-gradient(180deg, #c2e8f8 0%, #eef8fd 100%);
+}
+.page-hero-eyebrow {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.75rem; font-weight: 500;
+  letter-spacing: 0.35em; color: var(--gold);
+  margin-bottom: 1rem;
+}
+.page-hero h1 {
+  font-size: 2rem; font-weight: 900;
+  letter-spacing: 0.06em; line-height: 1.4;
+}
+.page-hero-meta {
+  margin-top: 1.2rem;
+  display: flex; align-items: center; justify-content: center; gap: 0.8rem;
+  font-family: 'Noto Sans JP', sans-serif; font-size: 0.8rem;
+}
+.hero-date { color: var(--gold); font-weight: 700; letter-spacing: 0.1em; }
+.hero-tag {
+  padding: 0.2rem 0.8rem;
+  background: linear-gradient(135deg, #e63329, #b02020);
+  color: white; border-radius: 2px;
+  letter-spacing: 0.1em; font-weight: 700;
+}
+
+main {
+  max-width: 720px; margin: 0 auto;
+  padding: 3rem 2rem 6rem;
+}
+
+.article-body {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0 2.8rem 2.5rem;
+}
+
+.article-body p {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.95rem; line-height: 1.9;
+  color: var(--text);
+  margin-bottom: 1.4rem;
+}
+.article-body p:last-child { margin-bottom: 0; }
+
+.thanks-box {
+  margin: 2rem 0;
+  border: 2px solid var(--gold);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.thanks-box-header {
+  background: var(--gold);
+  color: white;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 700; font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  padding: 0.7rem 1.4rem;
+}
+.thanks-box-body {
+  padding: 1.4rem 1.6rem;
+  background: rgba(200,160,96,0.06);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.9rem; line-height: 1.9;
+  color: var(--text);
+}
+
+.ig-link-card {
+  display: flex; align-items: center; gap: 1rem;
+  margin: 2rem 0;
+  padding: 1.2rem 1.4rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  text-decoration: none; color: inherit;
+  transition: border-color 0.2s, transform 0.15s;
+}
+.ig-link-card:hover { border-color: var(--gold); transform: translateY(-1px); }
+.ig-link-card svg { flex-shrink: 0; color: var(--red); }
+.ig-link-card-text {
+  font-family: 'Noto Sans JP', sans-serif;
+}
+.ig-link-card-label {
+  font-size: 0.72rem; letter-spacing: 0.15em; color: var(--text-dim);
+  margin-bottom: 0.3rem;
+}
+.ig-link-card-title {
+  font-size: 0.95rem; font-weight: 700;
+}
+
+.photo-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.6rem;
+  margin: 0 -2.8rem 2rem;
+  padding: 0 2.8rem;
+}
+.photo-gallery img {
+  width: 100%; height: 220px;
+  object-fit: cover; border-radius: 6px;
+}
+
+
+.back-link {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  margin-top: 2.5rem;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.82rem; color: var(--text-dim);
+  text-decoration: none; letter-spacing: 0.08em;
+  transition: color 0.2s;
+}
+.back-link:hover { color: var(--red); }
+
+footer {
+  background: #020810;
+  padding: 2rem;
+  text-align: center;
+}
+footer p {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.7rem; color: var(--text-dim);
+  letter-spacing: 0.15em;
+}
+
+@media (max-width: 768px) {
+  nav { padding: 0 1rem; }
+  .hamburger { display: block; }
+  .nav-back { display: none; }
+  .nav-links {
+    position: fixed;
+    top: 64px; left: 0; right: 0;
+    background: rgba(232,245,251,0.98);
+    backdrop-filter: blur(12px);
+    flex-direction: column; gap: 0;
+    padding: 1rem 1.5rem 2rem;
+    border-bottom: 1px solid rgba(90,168,200,0.2);
+    transform: translateY(-110%);
+    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    align-items: stretch;
+  }
+  .nav-links.open { transform: translateY(0); }
+  .nav-links li { width: 100%; border-bottom: 1px solid rgba(90,168,200,0.15); list-style: none; }
+  .nav-links li:last-child { border-bottom: none; }
+  .nav-links a { display: block; padding: 1rem 0.5rem; font-size: 0.95rem; letter-spacing: 0.15em; }
+  .nav-links .nav-cta { display: inline-block; margin-top: 1rem; padding: 0.7rem 1.5rem; }
+  .page-hero { padding: 5rem 1rem 2rem; }
+  .page-hero h1 { font-size: 1.5rem; }
+  main { padding: 2rem 1rem 4rem; }
+  .article-body { padding: 1.6rem 1.4rem; }
+}
+
+/* ─────────────────────────────────────────────
+ * WordPress 実装で足した分（確定値は上を変更していない）
+ *
+ * 参照HTMLではリード画像・本文図版が figure の style 属性で組まれていた。
+ * ブロックエディタから同じ見た目を出せるようクラスに起こしてある。
+ * ───────────────────────────────────────────── */
+
+.article-lead { margin: 0 -2.8rem 2rem; overflow: hidden; border-radius: 6px 6px 0 0; }
+.article-lead img { width: 100%; height: 420px; object-fit: cover; display: block; }
+
+.article-body > figure,
+.article-body .wp-block-image { margin: 2rem -2.8rem; overflow: hidden; }
+.article-body > figure img,
+.article-body .wp-block-image img { width: 100%; height: 420px; object-fit: cover; display: block; }
+
+.article-lead figcaption,
+.article-body figcaption {
+  font-family: 'Noto Sans JP', sans-serif; font-size: 0.78rem; color: var(--text-dim);
+  padding: 0.6rem 2.8rem 0; text-align: center; letter-spacing: 0.05em;
+}
+
+/* ブロックエディタの基本要素を参照HTMLのトーンに合わせる。 */
+.article-body h2,
+.article-body h3 {
+  font-family: 'Noto Serif JP', serif; font-weight: 700; letter-spacing: 0.04em;
+  margin: 2.2rem 0 1rem; line-height: 1.6;
+}
+.article-body h2 { font-size: 1.35rem; }
+.article-body h3 { font-size: 1.12rem; }
+.article-body ul,
+.article-body ol {
+  font-family: 'Noto Sans JP', sans-serif; font-size: 0.95rem; line-height: 1.9;
+  margin: 0 0 1.4rem 1.3rem;
+}
+.article-body li { margin-bottom: 0.4rem; }
+.article-body a { color: var(--red); text-decoration: underline; text-underline-offset: 2px; }
+.article-body blockquote {
+  border-left: 3px solid var(--gold); padding-left: 1.2rem; margin: 1.8rem 0;
+  color: var(--text-dim);
+}
+
+@media (max-width: 768px) {
+  .article-lead,
+  .article-body > figure,
+  .article-body .wp-block-image { margin-left: -1.4rem; margin-right: -1.4rem; }
+  .article-lead img,
+  .article-body > figure img,
+  .article-body .wp-block-image img { height: 240px; }
+  .article-lead figcaption,
+  .article-body figcaption { padding-left: 1.4rem; padding-right: 1.4rem; }
+}

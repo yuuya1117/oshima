@@ -1,0 +1,235 @@
+{
+    "key": "group_past_event",
+    "title": "過去開催",
+    "fields": [
+        {
+            "key": "field_past_event_date",
+            "label": "開催日",
+            "name": "event_date",
+            "type": "date_picker",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "display_format": "Y年n月j日",
+            "return_format": "Ymd",
+            "first_day": 0
+        },
+        {
+            "key": "field_past_venue_name",
+            "label": "会場名",
+            "name": "venue_name",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_past_stats",
+            "label": "統計カード",
+            "name": "stats",
+            "type": "repeater",
+            "instructions": "来場者数・出展蔵数など。トップの実績表示もここから算出する。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "statを追加",
+            "sub_fields": [
+                {
+                    "key": "field_stat_number",
+                    "label": "数値",
+                    "name": "number",
+                    "type": "text",
+                    "instructions": "例: 500",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_stat_unit_suffix",
+                    "label": "単位",
+                    "name": "unit_suffix",
+                    "type": "text",
+                    "instructions": "例: 名 / 蔵",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_stat_label",
+                    "label": "ラベル",
+                    "name": "label",
+                    "type": "text",
+                    "instructions": "例: 来場者数",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": ""
+                }
+            ]
+        },
+        {
+            "key": "field_past_report_body",
+            "label": "レポート本文",
+            "name": "report_body",
+            "type": "wysiwyg",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
+            "key": "field_past_gallery",
+            "label": "フォトギャラリー",
+            "name": "gallery",
+            "type": "gallery",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "preview_size": "medium",
+            "insert": "append",
+            "library": "all"
+        },
+        {
+            "key": "field_past_report_link",
+            "label": "開催レポート記事",
+            "name": "report_link",
+            "type": "post_object",
+            "instructions": "トップのアーカイブカードのリンク先。空ならこの過去開催ページ自身にリンクする。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "post"
+            ],
+            "taxonomy": [],
+            "allow_null": 1,
+            "multiple": 0,
+            "return_format": "object",
+            "ui": 1
+        },
+        {
+            "key": "field_past_seo_title",
+            "label": "SEO: タイトル上書き",
+            "name": "seo_title",
+            "type": "text",
+            "instructions": "現行HTMLの <title> をそのまま移す欄。空なら投稿タイトルから組み立てる。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_past_seo_description",
+            "label": "SEO: meta description",
+            "name": "seo_description",
+            "type": "textarea",
+            "instructions": "現行HTMLの meta description をそのまま移す。書き換えると順位が動くので移行時は原文のまま。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_past_seo_og_image",
+            "label": "SEO: OGP画像",
+            "name": "seo_og_image",
+            "type": "image",
+            "instructions": "空ならアイキャッチを使う。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "past_event"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1758283200
+}

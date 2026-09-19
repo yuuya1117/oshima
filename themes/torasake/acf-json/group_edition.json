@@ -1,0 +1,58 @@
+{
+    "key": "group_edition",
+    "title": "開催回の設定",
+    "fields": [
+        {
+            "key": "field_edition_edition_date",
+            "label": "開催日",
+            "name": "edition_date",
+            "type": "date_picker",
+            "instructions": "酒蔵一覧の開催回セレクトは、この日付が最も新しいタームを既定選択にする。",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "display_format": "Y年n月j日",
+            "return_format": "Ymd",
+            "first_day": 0
+        },
+        {
+            "key": "field_edition_edition_label_short",
+            "label": "セレクト用の短い表示名",
+            "name": "edition_label_short",
+            "type": "text",
+            "instructions": "例: TORASAKE mini(2026.10.16)。空ならターム名をそのまま使う。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "taxonomy",
+                "operator": "==",
+                "value": "event_edition"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1758283200
+}

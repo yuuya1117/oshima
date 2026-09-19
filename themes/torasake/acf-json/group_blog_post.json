@@ -1,0 +1,149 @@
+{
+    "key": "group_blog_post",
+    "title": "ブログ",
+    "fields": [
+        {
+            "key": "field_blog_youtube_video_id",
+            "label": "YouTube動画ID",
+            "name": "youtube_video_id",
+            "type": "text",
+            "instructions": "URLではなくID部分だけ。例: dQw4w9WgXcQ",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_blog_related_brewery",
+            "label": "関連する酒蔵",
+            "name": "related_brewery",
+            "type": "relationship",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "brewery"
+            ],
+            "taxonomy": [],
+            "filters": [
+                "search",
+                "post_type"
+            ],
+            "elements": [],
+            "min": "",
+            "max": "",
+            "return_format": "object"
+        },
+        {
+            "key": "field_blog_pull_quote",
+            "label": "プルクオート",
+            "name": "pull_quote",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_blog_pull_quote_who",
+            "label": "プルクオートの話者",
+            "name": "pull_quote_who",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_blog_seo_title",
+            "label": "SEO: タイトル上書き",
+            "name": "seo_title",
+            "type": "text",
+            "instructions": "現行HTMLの <title> をそのまま移す欄。空なら投稿タイトルから組み立てる。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_blog_seo_description",
+            "label": "SEO: meta description",
+            "name": "seo_description",
+            "type": "textarea",
+            "instructions": "現行HTMLの meta description をそのまま移す。書き換えると順位が動くので移行時は原文のまま。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_blog_seo_og_image",
+            "label": "SEO: OGP画像",
+            "name": "seo_og_image",
+            "type": "image",
+            "instructions": "空ならアイキャッチを使う。",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "blog_post"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1758283200
+}

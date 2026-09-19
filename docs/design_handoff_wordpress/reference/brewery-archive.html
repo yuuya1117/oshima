@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>参加酒蔵一覧 | TORASAKE -虎ノ酒-</title>
+<meta name="description" content="TORASAKE -虎ノ酒- にこれまで参加した全国の酒蔵一覧。都道府県・キーワード・開催回で検索できます。">
+<link rel="canonical" href="https://torasake.com/breweries/index.html">
+<link rel="icon" type="image/png" href="../uploads/torasake_logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700;900&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fbfaf7; --bg2: #f4f9fd; --bg3: #ffffff;
+  --gold: #c8a060; --gold-dim: #a07840;
+  --red: #e63329; --red-bright: #f04040;
+  --text: #1a1a2e; --text-dim: #5a6a78;
+  --border: rgba(90,140,180,0.22);
+  --navy: #0d1929;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Noto Serif JP', serif; background: var(--bg); color: var(--text); line-height: 1.8; }
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+.mono { font-family: 'Noto Sans JP', sans-serif; }
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 3rem; height: 64px;
+  background: rgba(251,250,247,0.92); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo img { height: 30px; }
+.nav-back {
+  font-family: 'Noto Sans JP', sans-serif; font-size: 0.78rem; color: var(--text-dim);
+  text-decoration: none; letter-spacing: 0.08em; display: flex; align-items: center; gap: 0.4rem; white-space: nowrap;
+}
+.nav-back:hover { color: var(--red); }
+
+/* ─── HERO / SEARCH ─── */
+#hero { padding: 9.5rem 2rem 3rem; text-align: center; }
+.hero-eyebrow {
+  font-family: 'Noto Sans JP', sans-serif; font-size: 0.72rem; letter-spacing: 0.4em;
+  color: var(--gold-dim); text-transform: uppercase; font-weight: 600;
+}
+#hero h1 { font-size: clamp(1.7rem, 4vw, 2.4rem); font-weight: 900; margin: 0.8rem 0 1.8rem; letter-spacing: 0.03em; }
+
+.search-bar {
+  max-width: 620px; margin: 0 auto 1.4rem; display: flex; align-items: center; gap: 0.6rem;
+  border: 1.5px solid var(--text); border-radius: 30px; padding: 0.3rem 0.4rem 0.3rem 1.4rem; background: var(--bg3);
+}
+.search-bar svg { flex: none; color: var(--text-dim); }
+.search-bar input {
+  flex: 1; border: none; outline: none; background: transparent;
+  font-family: 'Noto Sans JP', sans-serif; font-size: 0.92rem; padding: 0.7rem 0; color: var(--text);
+}
+.search-bar input::placeholder { color: #a8b0b8; }
+.search-bar .clear-btn {
+  background: none; border: none; color: var(--text-dim); font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.72rem; cursor: pointer; padding: 0.5rem 0.9rem; display: none;
+  white-space: nowrap; flex-shrink: 0;
+}
+.search-bar .clear-btn.show { display: inline-block; }
+
+.filter-row {
+  max-width: 780px; margin: 0 auto; display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap;
+}
+.filter-select {
+  font-family: 'Noto Sans JP', sans-serif; font-size: 0.78rem; color: var(--text);
+  border: 1px solid var(--border); border-radius: 18px; padding: 0.5rem 1rem;
+  background: var(--bg3); appearance: none; cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%235a6a78'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 0.9rem center; padding-right: 2rem;
+  white-space: nowrap; flex-shrink: 0;
+}
+
+/* ─── RESULT META ─── */
+.result-meta {
+  max-width: 1160px; margin: 2.2rem auto 1rem; padding: 0 2rem;
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-family: 'Noto Sans JP', sans-serif; font-size: 0.78rem; color: var(--text-dim);
+}
+.result-meta strong { color: var(--text); font-size: 1rem; font-family: 'Noto Serif JP', serif; }
+.result-meta .tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.result-meta .tag {
+  background: rgba(200,160,96,0.14); color: var(--gold-dim); padding: 0.2rem 0.7rem; border-radius: 12px;
+  display: flex; align-items: center; gap: 0.4rem; white-space: nowrap; flex-shrink: 0;
+}
+.result-meta .tag button { border: none; background: none; color: var(--gold-dim); cursor: pointer; font-size: 0.85rem; line-height: 1; padding: 0; }
+
+/* ─── GRID ─── */
+#grid-section { padding: 0 2rem 5rem; }
+.brew-grid {
+  max-width: 1160px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.1rem;
+}
+.brew-card {
+  display: block; text-decoration: none; background: var(--bg3);
+  border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+.brew-card:hover { border-color: var(--gold); box-shadow: 0 10px 28px -10px rgba(200,160,96,0.35); transform: translateY(-2px); }
+.brew-card .img {
+  height: 120px; display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(160deg,#fffefb,#f7f2e8); padding: 1rem;
+}
+.brew-card .img img { max-width: 78%; max-height: 78%; object-fit: contain; }
+.brew-card .body { padding: 0.9rem 1.1rem 1.1rem; border-top: 1px solid var(--border); }
+.brew-card .pref {
+  font-family: 'Noto Sans JP', sans-serif; font-size: 0.66rem; color: var(--gold-dim); letter-spacing: 0.08em;
+  display: flex; align-items: center; gap: 0.35rem; margin-bottom: 0.3rem;
+}
+.brew-card .pref::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); }
+.brew-card h3 { font-size: 1.02rem; font-weight: 800; letter-spacing: 0.02em; margin-bottom: 0.25rem; }
+.brew-card .sake { font-family: 'Noto Sans JP', sans-serif; font-size: 0.74rem; color: var(--text-dim); line-height: 1.5; }
+
+.empty-state {
+  max-width: 1160px; margin: 3rem auto; text-align: center; padding: 3rem 2rem;
+  font-family: 'Noto Sans JP', sans-serif; color: var(--text-dim); display: none;
+}
+.empty-state.show { display: block; }
+
+/* ─── FOOTER ─── */
+footer { background: var(--navy); color: #c9d3da; padding: 3rem 2rem; text-align: center; font-family: 'Noto Sans JP', sans-serif; font-size: 0.78rem; }
+footer .fl { color: var(--gold); font-family: 'Noto Serif JP', serif; font-size: 1.1rem; letter-spacing: 0.2em; margin-bottom: 0.9rem; display: block; }
+
+@media (max-width: 640px) {
+  nav { padding: 0 1rem; }
+  #hero { padding: 8rem 1.2rem 2.4rem; }
+  .filter-row { gap: 0.5rem; }
+  .brew-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.8rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="top-page.html"><img src="../uploads/torasake_logo.png" alt="TORASAKE"></a>
+  <a class="nav-back" href="top-page.html">← トップへ戻る</a>
+</nav>
+
+<section id="hero">
+  <span class="hero-eyebrow">Sake Brewery Directory</span>
+  <h1>参加酒蔵一覧</h1>
+
+  <div class="search-bar">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    <input id="q" type="text" placeholder="蔵名・銘柄名で検索(例:二兎、純米大吟醸)" autocomplete="off">
+    <button class="clear-btn" id="clearBtn">クリア</button>
+  </div>
+
+  <div class="filter-row">
+    <select class="filter-select" id="prefSelect">
+      <option value="">都道府県:すべて</option>
+    </select>
+    <select class="filter-select" id="eventSelect">
+      <option value="">開催回:すべて</option>
+      <option value="torasake-mini-2026" selected>TORASAKE mini(2026.10.16)</option>
+      <option value="torasake-2026">TORASAKE -虎ノ酒- 2026</option>
+    </select>
+  </div>
+</section>
+
+<div class="result-meta">
+  <div><strong id="countNum">10</strong> 蔵 / 全<span id="totalNum">33</span>蔵</div>
+  <div class="tags" id="activeTags"></div>
+</div>
+
+<section id="grid-section">
+  <div class="brew-grid" id="grid"></div>
+  <div class="empty-state" id="emptyState">
+    条件に一致する酒蔵が見つかりませんでした。検索条件を変えてお試しください。
+  </div>
+</section>
+
+<footer>
+  <span class="fl">TORASAKE</span>
+  日本酒と出会う、継続開催イベントシリーズ
+</footer>
+
+<script>
+const breweries = [
+  { name: "二兎", sake: "二兎 純米大吟醸", pref: "愛知県", img: "../uploads/二兎ロゴ２.webp", slug: "nito", events: ["torasake-2026","torasake-mini-2026"] },
+  { name: "土田酒造", sake: "土田 生酛純米", pref: "群馬県", img: "../uploads/ロゴ土田酒造.png", slug: "tsuchida", events: ["torasake-2026"] },
+  { name: "作", sake: "作 穂乃智", pref: "三重県", img: "../uploads/作ロゴ.jpg", slug: "zaku", events: ["torasake-2026"] },
+  { name: "雨降", sake: "雨降 純米吟醸", pref: "神奈川県", img: "../uploads/afuri_logo.jpg", slug: "afuri", events: ["torasake-2026"] },
+  { name: "洌", sake: "洌 純米大吟醸", pref: "山形県", img: "../uploads/retsu_logo.jpg", slug: "retsu", events: ["torasake-2026"] },
+  { name: "羽根屋", sake: "羽根屋 純米吟醸", pref: "富山県", img: "../uploads/haneya_logo.jpg", slug: "haneya", events: ["torasake-2026","torasake-mini-2026"] },
+  { name: "高千代", sake: "高千代 辛口純米", pref: "新潟県", img: "../uploads/たかちよ高千代ロゴ.jpg", slug: "takachiyo", events: ["torasake-2026","torasake-mini-2026"] },
+  { name: "貴", sake: "貴 純米大吟醸", pref: "山口県", img: "../uploads/taka_logo.jpg", slug: "taka", events: ["torasake-2026"] },
+  { name: "仁井田本家", sake: "穏 純米", pref: "福島県", img: "../uploads/仁井田本家ロゴ.jpg", slug: "niida", events: ["torasake-2026"] },
+  { name: "藤井酒造", sake: "龍勢 純米", pref: "広島県", img: "../uploads/藤井酒造ロゴ.jpg", slug: "fujii", events: ["torasake-2026"] },
+  { name: "八戸酒造", sake: "陸奥八仙 純米吟醸", pref: "青森県", img: "../uploads/陸奥八仙ロゴ.jpg", slug: "mutsu-hassen", events: ["torasake-2026"] },
+  { name: "大木代吉本店", sake: "楽器正宗 白鼓 中取り 大吟醸", pref: "福島県", img: "../uploads/楽器正宗ロゴ.jpg", slug: "gakki-masamune", events: ["torasake-2026"] },
+  { name: "青木酒造", sake: "鶴齢 / 雪男(3銘柄)", pref: "新潟県", img: "../uploads/鶴齢１.png", slug: "kakurei", events: ["torasake-2026"] },
+  { name: "利守酒造", sake: "赤磐雄町 純米大吟醸", pref: "岡山県", img: "../uploads/toshimori.jpg", slug: "sake-hitosuji", events: ["torasake-2026"] },
+  { name: "今田酒造本店", sake: "富久長 純米吟醸", pref: "広島県", img: "../uploads/富久長ロゴ.png", slug: "fukucho", events: ["torasake-2026"] },
+  { name: "島崎酒造", sake: "東力士 純吟 酔夏 12(夏酒)", pref: "栃木県", img: "../uploads/東力士ロゴ-ローマ字あり.jpg", slug: "azuma-rikishi", events: ["torasake-2026"] },
+  { name: "天山酒造", sake: "七田 510 GOTO", pref: "佐賀県", img: "../uploads/image1.jpeg", slug: "shichida", events: ["torasake-2026"] },
+  { name: "小野酒造店", sake: "夜明け前 しずく採り生酒", pref: "長野県", img: "../uploads/夜明け前ロゴ-透過.png", slug: "yoakemae", events: ["torasake-2026","torasake-mini-2026"] },
+  { name: "秋田清酒", sake: "やまとしずく 純米吟醸 一穂積", pref: "秋田県", img: "../uploads/やまとしずくロゴ.jpg", slug: "kariho", events: ["torasake-2026"] },
+  { name: "土井酒造場", sake: "開運 純米 涼々(夏限定)", pref: "静岡県", img: "../uploads/開運ロゴ高解像度.jpg", slug: "kaiun", events: ["torasake-2026"] },
+  { name: "吉田酒造", sake: "美月 純米大吟醸", pref: "島根県", img: "../uploads/gassan-logo-new.png", slug: "gassan", events: ["torasake-2026"] },
+  { name: "来福酒造", sake: "来福 純米大吟醸", pref: "茨城県", img: "../uploads/来福ロゴ.jpg", slug: "raifuku", events: ["torasake-2026"] },
+  { name: "八海醸造", sake: "八海山 純米吟醸", pref: "新潟県", img: "../uploads/八海山ロゴ.jpg", slug: "hakkaisan", events: ["torasake-2026"] },
+  { name: "勲碧酒造", sake: "勲碧 純米大吟醸", pref: "愛知県", img: "../uploads/勲碧ロゴ1.jpg", slug: "kunpeki", events: ["torasake-2026"] },
+  { name: "豊国酒造", sake: "一歩己 純米", pref: "福島県", img: "../uploads/一歩己.jpg", slug: "ippoki", events: ["torasake-2026","torasake-mini-2026"] },
+  { name: "農口尚彦研究所", sake: "山廃 純米", pref: "石川県", img: "../uploads/農口尚彦研究所ロゴ.png", slug: "noguchi-naohiko", events: ["torasake-2026","torasake-mini-2026"] },
+  { name: "笑四季酒造", sake: "笑四季 純米", pref: "滋賀県", img: "../uploads/笑四季ロゴ.jpg", slug: "emishiki", events: ["torasake-2026","torasake-mini-2026"] },
+  { name: "豊島屋酒造", sake: "屋守 純米", pref: "東京都", img: "../uploads/屋守ロゴ.jpeg", slug: "okunokami", events: ["torasake-2026","torasake-mini-2026"] },
+  { name: "宗玄酒造", sake: "宗玄 純米", pref: "石川県", img: "../uploads/宗玄ロゴ.jpg", slug: "sogen", events: ["torasake-2026"] },
+  { name: "はつもみぢ", sake: "原田 純米吟醸", pref: "山口県", img: "../uploads/原田ロゴ.png", slug: "harada", events: ["torasake-2026"] },
+  { name: "成龍酒造", sake: "伊予賀儀屋 純米", pref: "愛媛県", img: "../uploads/賀儀屋ロゴ.png", slug: "iyokagiya", events: ["torasake-2026","torasake-mini-2026"] },
+  { name: "Hirose Sake Works", sake: "eight", pref: "愛知県", img: "../uploads/eightロゴ.png", slug: "eight", events: ["torasake-2026"] },
+  { name: "大信州酒造", sake: "大信州", pref: "長野県", img: "../uploads/大信州ロゴ-5bec2758.jpg", slug: "daishinshu", events: ["torasake-mini-2026"] },
+];
+
+const DEFAULT_EVENT = "torasake-mini-2026";
+const eventLabels = { "torasake-2026": "TORASAKE -虎ノ酒- 2026", "torasake-mini-2026": "TORASAKE mini(2026.10.16)" };
+
+// populate prefecture options (sorted, unique)
+const prefSelect = document.getElementById('prefSelect');
+const prefs = [...new Set(breweries.map(b => b.pref))].sort((a,b) => a.localeCompare(b, 'ja'));
+prefs.forEach(p => {
+  const opt = document.createElement('option');
+  opt.value = p; opt.textContent = p;
+  prefSelect.appendChild(opt);
+});
+
+const qInput = document.getElementById('q');
+const eventSelect = document.getElementById('eventSelect');
+const grid = document.getElementById('grid');
+const countNum = document.getElementById('countNum');
+const totalNum = document.getElementById('totalNum');
+const emptyState = document.getElementById('emptyState');
+const activeTags = document.getElementById('activeTags');
+const clearBtn = document.getElementById('clearBtn');
+
+totalNum.textContent = breweries.length;
+
+function render() {
+  const q = qInput.value.trim().toLowerCase();
+  const pref = prefSelect.value;
+  const ev = eventSelect.value;
+
+  const filtered = breweries.filter(b => {
+    const matchQ = !q || b.name.toLowerCase().includes(q) || b.sake.toLowerCase().includes(q);
+    const matchPref = !pref || b.pref === pref;
+    const matchEv = !ev || b.events.includes(ev);
+    return matchQ && matchPref && matchEv;
+  });
+
+  grid.innerHTML = filtered.map(b => `
+    <a class="brew-card" href="../../breweries/${b.slug}.html">
+      <div class="img"><img src="${b.img}" alt="${b.name}"></div>
+      <div class="body">
+        <div class="pref">${b.pref}</div>
+        <h3>${b.name}</h3>
+        <div class="sake">${b.sake}</div>
+      </div>
+    </a>
+  `).join('');
+
+  countNum.textContent = filtered.length;
+  emptyState.classList.toggle('show', filtered.length === 0);
+  clearBtn.classList.toggle('show', !!(q || pref || ev !== DEFAULT_EVENT));
+
+  const tags = [];
+  if (q) tags.push({ label: `"${q}"`, clear: () => { qInput.value=''; } });
+  if (pref) tags.push({ label: pref, clear: () => { prefSelect.value=''; } });
+  if (ev) tags.push({ label: eventLabels[ev] || ev, clear: () => { eventSelect.value=''; } });
+  activeTags.innerHTML = tags.map((t,i) => `<span class="tag" data-i="${i}">${t.label}<button aria-label="解除">×</button></span>`).join('');
+  [...activeTags.querySelectorAll('button')].forEach((btn, i) => {
+    btn.addEventListener('click', () => { tags[i].clear(); render(); });
+  });
+}
+
+qInput.addEventListener('input', render);
+prefSelect.addEventListener('change', render);
+eventSelect.addEventListener('change', render);
+clearBtn.addEventListener('click', () => {
+  qInput.value = ''; prefSelect.value = ''; eventSelect.value = '';
+  render();
+});
+
+// prefill from URL (?pref=, ?q=)
+const params = new URLSearchParams(location.search);
+if (params.get('pref')) prefSelect.value = params.get('pref');
+if (params.get('q')) qInput.value = params.get('q');
+if (params.get('event')) eventSelect.value = params.get('event');
+
+render();
+</script>
+
+</body>
+</html>

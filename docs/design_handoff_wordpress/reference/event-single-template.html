@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>◯◯ | TORASAKE -虎ノ酒-</title>
+<meta name="description" content="◯◯にて開催。TORASAKE -虎ノ酒- のイベント告知ページテンプレート。日程・会場・参加酒蔵が決まり次第、内容を差し替えてください。">
+<link rel="canonical" href="https://torasake.com/events/◯◯.html">
+<link rel="icon" type="image/png" href="../uploads/torasake_logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700;900&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #e8f5fb; --bg2: #f4f9fd; --bg3: #ffffff;
+  --gold: #c8a060; --gold-dim: #a07840;
+  --red: #e63329; --red-bright: #f04040;
+  --text: #1a1a2e; --text-dim: #5a6a78;
+  --border: rgba(90,140,180,0.25);
+  --navy: #0d1929;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Noto Serif JP', serif; background: var(--bg); color: var(--text); line-height: 1.8; overflow-x: hidden; }
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+.mono { font-family: 'Noto Sans JP', sans-serif; }
+
+/* ─── PLACEHOLDER TAG (remove when filling real content) ─── */
+.tpl-flag {
+  position: fixed; bottom: 16px; right: 16px; z-index: 999;
+  background: var(--navy); color: #f0d9a8; font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.7rem; letter-spacing: 0.08em; padding: 0.6rem 1rem; border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 3rem; height: 64px;
+  background: rgba(232,245,251,0.92); backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(90,168,200,0.2);
+}
+.nav-logo img { height: 30px; }
+.nav-back {
+  font-family: 'Noto Sans JP', sans-serif; font-size: 0.78rem; color: var(--text-dim);
+  text-decoration: none; letter-spacing: 0.08em; display: flex; align-items: center; gap: 0.4rem;
+}
+.nav-back:hover { color: var(--red); }
+.nav-cta { padding: 0.45rem 1.1rem; border: 1px solid var(--red); color: var(--red) !important; border-radius: 20px;
+  font-family: 'Noto Sans JP', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-decoration: none;
+  white-space: nowrap; flex-shrink: 0; }
+
+/* ─── HERO ─── */
+#hero {
+  position: relative; min-height: 78vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; overflow: hidden; padding: 8rem 2rem 4rem; gap: 1.4rem;
+}
+.hero-bg { position: absolute; inset: 0; background: linear-gradient(160deg, #c2e8f8 0%, #d8f0fc 30%, #eef8fd 60%, #f8fdff 100%); z-index: -1; }
+.hero-eyebrow { font-family: 'Noto Sans JP', sans-serif; font-size: 0.72rem; letter-spacing: 0.35em; color: var(--gold-dim); text-transform: uppercase; font-weight: 600; }
+.pill { font-family: 'Noto Sans JP', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; padding: 0.3rem 0.85rem; border-radius: 20px; display: inline-block; white-space: nowrap; }
+.pill-mini { background: var(--gold); color: #fff; }
+#hero h1 { font-size: clamp(2rem, 4.5vw, 3.2rem); font-weight: 900; letter-spacing: 0.04em; max-width: 760px; }
+#hero .lede { font-family: 'Noto Sans JP', sans-serif; color: var(--text-dim); font-size: 0.92rem; max-width: 520px; }
+.hero-meta-row {
+  display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center; margin-top: 0.6rem;
+  font-family: 'Noto Sans JP', sans-serif; font-size: 0.85rem; color: var(--text-dim);
+}
+.hero-meta-row b { color: var(--text); font-weight: 700; }
+.hero-cta-group { display: flex; gap: 1rem; margin-top: 0.6rem; }
+.btn-primary, .btn-outline {
+  padding: 0.85rem 2rem; font-family: 'Noto Sans JP', sans-serif; font-weight: 700;
+  letter-spacing: 0.1em; font-size: 0.82rem; border-radius: 3px; text-decoration: none; display: inline-block;
+  white-space: nowrap;
+}
+.btn-primary { background: var(--red); color: #fff; }
+.btn-outline { border: 1px solid var(--text); color: var(--text); }
+.btn-outline:hover { border-color: var(--gold); color: var(--gold-dim); }
+
+/* ─── SECTION SHELL ─── */
+section { padding: 5rem 2rem; }
+.section-inner { max-width: 1000px; margin: 0 auto; }
+.section-header { text-align: center; margin-bottom: 2.6rem; }
+.section-label {
+  font-family: 'Noto Sans JP', sans-serif; font-size: 0.68rem; letter-spacing: 0.35em;
+  color: var(--gold-dim); text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 0.7rem;
+}
+.section-title { font-size: 1.6rem; font-weight: 800; letter-spacing: 0.03em; }
+.divider { width: 52px; height: 2px; background: linear-gradient(90deg, var(--red), var(--gold)); margin: 1rem auto 0; }
+.section-subtitle { font-family: 'Noto Sans JP', sans-serif; color: var(--text-dim); font-size: 0.85rem; margin-top: 1rem; }
+
+/* ─── THEME / ABOUT ─── */
+#theme { background: var(--bg2); }
+#theme p { font-family: 'Noto Sans JP', sans-serif; font-size: 0.92rem; color: var(--text-dim); text-align: center; max-width: 720px; margin: 0 auto; line-height: 2; }
+
+/* ─── VENUE ─── */
+.venue-card {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--border);
+  border-radius: 8px; overflow: hidden; background: var(--bg3);
+}
+.venue-card .img { min-height: 260px; background: repeating-linear-gradient(135deg,#eef2f4,#eef2f4 10px,#f5f7f8 10px,#f5f7f8 20px);
+  display: flex; align-items: center; justify-content: center; font-family: 'Noto Sans JP', sans-serif; font-size: 0.75rem; color: #8296a8; text-align: center; padding: 1rem; }
+.venue-card .vb { padding: 2rem 2.2rem; display: flex; flex-direction: column; justify-content: center; gap: 0.9rem; }
+.venue-card h3 { font-size: 1.2rem; font-weight: 800; }
+.venue-card .mono-list { font-family: 'Noto Sans JP', sans-serif; font-size: 0.85rem; color: var(--text-dim); line-height: 2; }
+
+/* ─── BREWERIES PREVIEW ─── */
+#breweries { background: var(--bg2); }
+.brew-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1rem; }
+.brew-card { border: 1px solid var(--border); border-radius: 6px; overflow: hidden; background: var(--bg3); }
+.brew-card .img { height: 96px; display: flex; align-items: center; justify-content: center; background: #f8f4ee;
+  font-family: 'Noto Sans JP', sans-serif; font-size: 0.6rem; color: #b8ac96; text-align: center; }
+.brew-card .nm { padding: 0.55rem; font-family: 'Noto Sans JP', sans-serif; font-size: 0.72rem; font-weight: 700; text-align: center; color: var(--text); }
+
+/* ─── HOWTO ─── */
+.howto-steps { display: flex; flex-direction: column; gap: 1.4rem; max-width: 640px; margin: 0 auto; }
+.howto-step { display: flex; gap: 1.2rem; align-items: flex-start; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 1.4rem 1.6rem; }
+.howto-num { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, var(--red-bright), var(--red)); color: #fff;
+  font-weight: 800; display: flex; align-items: center; justify-content: center; flex: none; }
+.howto-step h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
+.howto-step p { font-family: 'Noto Sans JP', sans-serif; font-size: 0.82rem; color: var(--text-dim); }
+
+/* ─── TICKET ─── */
+#ticket { text-align: center; }
+.ticket-box { max-width: 460px; margin: 0 auto; background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; padding: 2.4rem 2rem; }
+.ticket-amount { font-size: 2.6rem; font-weight: 900; color: var(--gold-dim); }
+.ticket-note { font-family: 'Noto Sans JP', sans-serif; font-size: 0.8rem; color: var(--text-dim); margin-top: 0.6rem; }
+
+/* ─── SPONSORS ─── */
+#sponsors { background: var(--bg2); }
+.sponsor-tier { margin-bottom: 2.2rem; }
+.sponsor-tier:last-child { margin-bottom: 0; }
+.sponsor-tier-label {
+  font-family: 'Noto Sans JP', sans-serif; font-size: 0.68rem; letter-spacing: 0.25em; font-weight: 700;
+  color: var(--text-dim); text-transform: uppercase; text-align: center; display: block; margin-bottom: 1rem;
+}
+.sponsor-grid-title { display: flex; justify-content: center; }
+.sponsor-tile {
+  background: var(--bg3); border: 1px dashed var(--border); border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Noto Sans JP', sans-serif; font-size: 0.72rem; color: #a8b0b8; letter-spacing: 0.05em;
+}
+.sponsor-tile.title-slot { width: 320px; height: 110px; }
+.sponsor-grid-supporters { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+.sponsor-tile.supporter-slot { width: 150px; height: 70px; }
+
+/* ─── FOOTER ─── */
+footer { background: var(--navy); color: #c9d3da; padding: 3rem 2rem; text-align: center; font-family: 'Noto Sans JP', sans-serif; font-size: 0.78rem; }
+footer .fl { color: var(--gold); font-family: 'Noto Serif JP', serif; font-size: 1.1rem; letter-spacing: 0.2em; margin-bottom: 0.9rem; display: block; }
+
+@media (max-width: 860px) {
+  nav { padding: 0 1rem; }
+  .venue-card { grid-template-columns: 1fr; }
+  .hero-cta-group { flex-direction: column; }
+  section { padding: 3.5rem 1.2rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="tpl-flag">テンプレート — 内容を差し替えてください</div>
+
+<nav>
+  <a class="nav-logo" href="../TORASAKE トップページ v4 (A案).html"><img src="../uploads/torasake_logo.png" alt="TORASAKE"></a>
+  <a class="nav-back" href="../TORASAKE トップページ v4 (A案).html">← トップへ戻る</a>
+  <a href="#ticket" class="nav-cta">チケット</a>
+</nav>
+
+<section id="hero" data-screen-label="01 Hero">
+  <div class="hero-bg"></div>
+  <span class="hero-eyebrow">Sake Tasting Series</span>
+  <span class="pill pill-mini">◯◯回 ミニイベント</span>
+  <h1>◯◯「テーマ名」</h1>
+  <p class="lede">◯◯というテーマのもと、厳選した◯蔵が集まる一夜。蔵人と語らいながら、あなたの推し酒に出会ってください。</p>
+  <div class="hero-meta-row">
+    <span>日程 <b>2026.◯◯.◯◯（◯）</b></span>
+    <span>時間 <b>◯◯:◯◯ – ◯◯:◯◯</b></span>
+    <span>会場 <b>◯◯（虎ノ門ヒルズ / 東京駅丸の内）</b></span>
+  </div>
+  <div class="hero-cta-group">
+    <a href="#ticket" class="btn-primary">チケット購入</a>
+    <a href="#breweries" class="btn-outline">参加酒蔵を見る</a>
+  </div>
+</section>
+
+<section id="theme" data-screen-label="02 テーマ">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-label">Theme</span>
+      <h2 class="section-title">今回のテーマ</h2>
+      <div class="divider"></div>
+    </div>
+    <p>◯◯について、企画意図や見どころをここに記載します。定期開催のミニイベントらしく、テーマ性・厳選ポイント・体験の特徴などを簡潔に。</p>
+  </div>
+</section>
+
+<section id="venue" data-screen-label="03 会場" style="background: var(--bg2);">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-label">Venue</span>
+      <h2 class="section-title">会場情報</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="venue-card">
+      <div class="img">会場写真</div>
+      <div class="vb">
+        <h3>◯◯（会場名）</h3>
+        <div class="mono-list">
+          住所:◯◯<br>
+          最寄駅:◯◯<br>
+          フロア:◯◯
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="breweries" data-screen-label="04 参加酒蔵">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-label">Breweries</span>
+      <h2 class="section-title">参加酒蔵</h2>
+      <div class="divider"></div>
+      <p class="section-subtitle">今回のテーマに合わせて厳選した◯蔵。</p>
+    </div>
+    <div class="brew-grid">
+      <div class="brew-card"><div class="img">蔵元画像</div><div class="nm">◯◯酒造</div></div>
+      <div class="brew-card"><div class="img">蔵元画像</div><div class="nm">◯◯酒造</div></div>
+      <div class="brew-card"><div class="img">蔵元画像</div><div class="nm">◯◯酒造</div></div>
+      <div class="brew-card"><div class="img">蔵元画像</div><div class="nm">◯◯酒造</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="howto" data-screen-label="05 参加方法" style="background: var(--bg2);">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-label">How to Enjoy</span>
+      <h2 class="section-title">参加方法</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="howto-steps">
+      <div class="howto-step"><div class="howto-num">1</div><div><h4>受付・チケット購入</h4><p>◯◯にて受付。</p></div></div>
+      <div class="howto-step"><div class="howto-num">2</div><div><h4>試飲を楽しむ</h4><p>◯◯を巡りながら、蔵人と語らう。</p></div></div>
+      <div class="howto-step"><div class="howto-num">3</div><div><h4>◯◯</h4><p>◯◯。</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="sponsors" data-screen-label="06 スポンサー">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-label">Sponsors</span>
+      <h2 class="section-title">協賛企業</h2>
+      <div class="divider"></div>
+      <p class="section-subtitle">◯◯様のご協賛により開催しています。</p>
+    </div>
+    <div class="sponsor-tier">
+      <span class="sponsor-tier-label">Title Sponsor</span>
+      <div class="sponsor-grid-title">
+        <div class="sponsor-tile title-slot">タイトルスポンサー ロゴ</div>
+      </div>
+    </div>
+    <div class="sponsor-tier">
+      <span class="sponsor-tier-label">Supporters</span>
+      <div class="sponsor-grid-supporters">
+        <div class="sponsor-tile supporter-slot">ロゴ</div>
+        <div class="sponsor-tile supporter-slot">ロゴ</div>
+        <div class="sponsor-tile supporter-slot">ロゴ</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ticket" data-screen-label="07 チケット">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-label">Ticket</span>
+      <h2 class="section-title">チケット</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="ticket-box">
+      <div class="ticket-amount">¥◯,◯◯◯</div>
+      <p class="ticket-note">◯◯（内容・注意事項をここに記載）</p>
+      <div style="margin-top:1.4rem;"><a href="#" class="btn-primary">チケットを購入する</a></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="fl">TORASAKE</span>
+  日本酒と出会う、継続開催イベントシリーズ
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>お知らせ | TORASAKE -虎ノ酒-</title>
+<meta name="description" content="TORASAKE -虎ノ酒- のお知らせ一覧。開催報告・イベントガイド・準備の様子などを発信しています。">
+<link rel="canonical" href="https://torasake.com/news/">
+<link rel="icon" type="image/png" href="../uploads/torasake_logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700;900&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #e8f5fb; --bg2: #f4f9fd; --bg3: #ffffff;
+  --gold: #c8a060; --gold-dim: #a07840;
+  --red: #e63329; --red-bright: #f04040;
+  --text: #1a1a2e; --text-dim: #5a6a78;
+  --border: rgba(90,140,180,0.25);
+  --navy: #0d1929;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Noto Serif JP', serif; background: var(--bg); color: var(--text); line-height: 1.8; }
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+.mono { font-family: 'Noto Sans JP', sans-serif; }
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 3rem; height: 64px;
+  background: rgba(232,245,251,0.92); backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(90,168,200,0.2);
+}
+.nav-logo img { height: 30px; }
+.nav-back {
+  font-family: 'Noto Sans JP', sans-serif; font-size: 0.78rem; color: var(--text-dim);
+  text-decoration: none; letter-spacing: 0.08em; display: flex; align-items: center; gap: 0.4rem; white-space: nowrap;
+}
+.nav-back:hover { color: var(--red); }
+
+/* ─── HERO ─── */
+header.page-hero { padding: 9.5rem 2rem 2.6rem; text-align: center; background: linear-gradient(160deg, #c2e8f8 0%, #eef8fd 70%); }
+.page-hero-eyebrow {
+  font-family: 'Noto Sans JP', sans-serif; font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.4em; color: var(--gold-dim); text-transform: uppercase;
+}
+.page-hero h1 { font-size: clamp(1.8rem, 4vw, 2.3rem); font-weight: 900; letter-spacing: 0.05em; margin-top: 0.8rem; }
+
+/* ─── CATEGORY FILTER ─── */
+.filter-bar {
+  max-width: 760px; margin: 1.8rem auto 0; padding: 0 2rem;
+  display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap;
+}
+.filter-chip {
+  font-family: 'Noto Sans JP', sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.05em;
+  padding: 0.5rem 1.1rem; border-radius: 20px; border: 1px solid var(--border);
+  background: var(--bg3); color: var(--text-dim); cursor: pointer; transition: all 0.15s;
+  white-space: nowrap; flex-shrink: 0;
+}
+.filter-chip:hover { border-color: var(--gold); color: var(--gold-dim); }
+.filter-chip.active { background: var(--text); color: #fff; border-color: var(--text); }
+
+main { max-width: 760px; margin: 0 auto; padding: 2.6rem 2rem 5rem; }
+
+.news-list { list-style: none; }
+.news-item {
+  display: block; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px;
+  padding: 1.6rem 1.9rem; margin-bottom: 1.1rem; text-decoration: none; color: inherit;
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+}
+.news-item:hover { transform: translateY(-2px); box-shadow: 0 14px 34px -14px rgba(30,60,100,0.2); border-color: var(--gold); }
+.news-meta { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.7rem; font-family: 'Noto Sans JP', sans-serif; font-size: 0.74rem; }
+.news-date { color: var(--gold-dim); letter-spacing: 0.08em; font-weight: 700; }
+.news-tag { padding: 0.2rem 0.75rem; border-radius: 12px; letter-spacing: 0.06em; font-weight: 700; }
+.news-tag.cat-report { background: rgba(200,160,96,0.16); color: var(--gold-dim); }
+.news-tag.cat-info { background: rgba(230,51,41,0.1); color: var(--red); }
+.news-tag.cat-guide { background: rgba(90,140,180,0.12); color: #45647a; }
+.news-title { font-size: 1.12rem; font-weight: 700; letter-spacing: 0.03em; line-height: 1.5; margin-bottom: 0.5rem; }
+.news-excerpt { font-family: 'Noto Sans JP', sans-serif; font-size: 0.84rem; color: var(--text-dim); line-height: 1.8; }
+
+.empty-state { display: none; text-align: center; padding: 3rem 1rem; font-family: 'Noto Sans JP', sans-serif; color: var(--text-dim); }
+.empty-state.show { display: block; }
+
+footer { background: var(--navy); color: #c9d3da; padding: 3rem 2rem; text-align: center; font-family: 'Noto Sans JP', sans-serif; font-size: 0.78rem; }
+footer .fl { color: var(--gold); font-family: 'Noto Serif JP', serif; font-size: 1.1rem; letter-spacing: 0.2em; margin-bottom: 0.9rem; display: block; }
+
+@media (max-width: 768px) {
+  nav { padding: 0 1rem; }
+  header.page-hero { padding: 7.5rem 1.2rem 2rem; }
+  main { padding: 2rem 1.2rem 3rem; }
+  .news-item { padding: 1.3rem 1.3rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="../TORASAKE トップページ v4 (A案).html"><img src="../uploads/torasake_logo.png" alt="TORASAKE"></a>
+  <a class="nav-back" href="../TORASAKE トップページ v4 (A案).html">← トップへ戻る</a>
+</nav>
+
+<header class="page-hero">
+  <div class="page-hero-eyebrow">News &amp; Updates</div>
+  <h1>お知らせ</h1>
+</header>
+
+<div class="filter-bar" id="filterBar">
+  <button class="filter-chip active" data-cat="">すべて</button>
+  <button class="filter-chip" data-cat="report">開催報告</button>
+  <button class="filter-chip" data-cat="info">お知らせ</button>
+  <button class="filter-chip" data-cat="guide">イベントガイド</button>
+</div>
+
+<main>
+  <ul class="news-list" id="newsList">
+
+    <li data-cat="report">
+      <a href="2026-07-03-event-report.html" class="news-item">
+        <div class="news-meta">
+          <span class="news-date">2026.07.03</span>
+          <span class="news-tag cat-report">開催報告</span>
+        </div>
+        <div class="news-title">盛況のうちに終了いたしました ─ 開催報告とお礼</div>
+        <div class="news-excerpt">
+          6月27日開催の「TORASAKE -虎ノ酒- 2026」は、多くのお客様にご来場いただき大盛況のうちに終了いたしました。ご来場・ご協力いただいたすべての皆様に、心より御礼申し上げます。
+        </div>
+      </a>
+    </li>
+
+    <li data-cat="info">
+      <a href="2026-06-27-当日券.html" class="news-item">
+        <div class="news-meta">
+          <span class="news-date">2026.06.27</span>
+          <span class="news-tag cat-info">お知らせ</span>
+        </div>
+        <div class="news-title">本日いよいよ開幕！当日券販売のお知らせ</div>
+        <div class="news-excerpt">
+          2026年6月27日（土）、TORASAKE -虎ノ酒- 2026がいよいよ開幕。会場受付にて当日券を販売いたしました。みなさまのご来場を心よりお待ちしております。
+        </div>
+      </a>
+    </li>
+
+    <li data-cat="info">
+      <a href="2026-05-28-matching.html" class="news-item">
+        <div class="news-meta">
+          <span class="news-date">2026.05.28</span>
+          <span class="news-tag cat-info">お知らせ</span>
+        </div>
+        <div class="news-title">酒蔵 × 飲食店 マッチング31組 発表！</div>
+        <div class="news-excerpt">
+          お待たせいたしました。TORASAKE 2026 にて、全国31蔵と虎ノ門ヒルズ23店舗のペアリングコラボが決定。蔵元と料理人が、この日だけの特別な日本酒×料理の出会いをお届けしました。
+        </div>
+      </a>
+    </li>
+
+    <li data-cat="guide">
+      <a href="2026-05-25-event-system.html" class="news-item">
+        <div class="news-meta">
+          <span class="news-date">2026.05.25</span>
+          <span class="news-tag cat-guide">イベントガイド</span>
+        </div>
+        <div class="news-title">TORASAKEの楽しみ方 ─ 回遊型・ペアリング体験イベント</div>
+        <div class="news-excerpt">
+          全国31蔵 × 虎ノ門ヒルズ23飲食店が交わる、一日限定の回遊型日本酒イベント。「システムがよく分からない」というお声にお応えして、改めて楽しみ方をご案内します。
+        </div>
+      </a>
+    </li>
+
+    <li data-cat="info">
+      <a href="2026-05-21-開催決定.html" class="news-item">
+        <div class="news-meta">
+          <span class="news-date">2026.05.21</span>
+          <span class="news-tag cat-info">お知らせ</span>
+        </div>
+        <div class="news-title">TORASAKE 2026 開催決定！参加酒蔵31蔵が出揃いました</div>
+        <div class="news-excerpt">
+          2026年6月27日（土）、虎ノ門ヒルズ ステーションタワーにて「TORASAKE -虎ノ酒- 2026」の開催が決定。全国から選び抜かれた31の酒蔵が集結しました。
+        </div>
+      </a>
+    </li>
+
+  </ul>
+  <div class="empty-state" id="emptyState">このカテゴリの記事はまだありません。</div>
+</main>
+
+<footer>
+  <span class="fl">TORASAKE</span>
+  日本酒と出会う、継続開催イベントシリーズ
+</footer>
+
+<script>
+const chips = document.querySelectorAll('.filter-chip');
+const items = document.querySelectorAll('#newsList > li');
+const emptyState = document.getElementById('emptyState');
+
+chips.forEach(chip => {
+  chip.addEventListener('click', () => {
+    chips.forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    const cat = chip.dataset.cat;
+    let visible = 0;
+    items.forEach(li => {
+      const show = !cat || li.dataset.cat === cat;
+      li.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    emptyState.classList.toggle('show', visible === 0);
+  });
+});
+</script>
+
+</body>
+</html>

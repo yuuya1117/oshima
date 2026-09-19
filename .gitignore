@@ -1,0 +1,16 @@
+# WordPress 本体は含めない（テーマのみのリポジトリ）
+/wp-admin/
+/wp-includes/
+/wp-content/
+wp-config.php
+
+# OS / エディタ
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# ビルド・依存
+node_modules/
+vendor/
