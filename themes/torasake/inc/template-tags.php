@@ -798,3 +798,59 @@ function torasake_first_post_id( $value ): int {
 	}
 	return 0;
 }
+
+/**
+ * イベント一覧・フィーチャーカードの日付行。
+ *
+ * @param int $event_id イベントID。
+ * @return string 例: 2026.10.16 FRI
+ */
+function torasake_event_dateline( int $event_id ): string {
+	$ymd = (string) torasake_field( 'event_date', $event_id );
+	if ( ! preg_match( '/^\d{8}$/', $ymd ) ) {
+		return '';
+	}
+	$date = DateTimeImmutable::createFromFormat( 'Ymd', $ymd, wp_timezone() );
+	return $date ? $date->format( 'Y.m.d' ) . ' ' . strtoupper( $date->format( 'D' ) ) : '';
+}
+
+/**
+ * イベント一覧・フィーチャーカードの会場行（会場名＋蔵数）。
+ *
+ * 蔵数はリレーションの件数から出す。ハードコードしない（CLAUDE.md #4）。
+ *
+ * @param int $event_id イベントID。
+ * @return string
+ */
+function torasake_event_venue_line( int $event_id ): string {
+	$parts = array();
+
+	$venue = (string) torasake_field( 'venue_name', $event_id );
+	if ( '' !== $venue ) {
+		$parts[] = $venue;
+	}
+
+	$count = count( torasake_rows( 'breweries', $event_id ) );
+	if ( $count > 0 ) {
+		$parts[] = sprintf( '全国%d蔵', $count );
+	}
+
+	return implode( '　', $parts );
+}
+
+/**
+ * イベント一覧・終了した回の行の補足（日付／会場）。
+ *
+ * @param int $event_id イベントID。
+ * @return string
+ */
+function torasake_event_rowline( int $event_id ): string {
+	$parts = array_filter(
+		array(
+			torasake_event_date_label( $event_id ),
+			(string) torasake_field( 'venue_name', $event_id ),
+		)
+	);
+
+	return implode( '／ ', $parts );
+}

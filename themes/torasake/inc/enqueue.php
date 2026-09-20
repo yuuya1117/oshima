@@ -91,6 +91,20 @@ function torasake_enqueue_assets(): void {
 		return;
 	}
 
+	// ブログ・イベントの一覧は参照HTMLが無い。確定済みの news-archive.css を
+	// ベース（nav / page-hero / footer）にして、追加分だけ別ファイルで重ねる。
+	if ( is_post_type_archive( 'blog_post' ) ) {
+		torasake_style( 'news-archive' );
+		torasake_style( 'blog-archive' );
+		return;
+	}
+
+	if ( is_post_type_archive( 'event' ) ) {
+		torasake_style( 'news-archive' );
+		torasake_style( 'event-archive' );
+		return;
+	}
+
 	if ( is_home() || is_category() || is_archive() ) {
 		torasake_style( 'news-archive' );
 		torasake_script( 'news-archive' );

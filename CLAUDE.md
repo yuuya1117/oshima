@@ -32,8 +32,14 @@ torasake.com（静的HTML）をWordPressフルカスタムテーマへ移行し�
 - なお `design_handoff_wordpress/README.md` の「トップページ＝紺基調 `--bg:#050c18`」は
   v5 の記述で、確定版の v6（`reference/top-page.html`）は水色基調 `--bg:#eaf6fc`。参照HTMLを優先する。
 - **`archive-blog_post.php` と `archive-event.php` は参照HTMLが存在しない**
-  （ハンドオフにあるのは記事・イベント単体のみ）。お知らせ一覧の確定済みCSSを
-  流用した暫定デザインなので、確定版が出たら差し替える。
+  （ハンドオフにあるのは記事・イベント単体のみ）。ゼロから作らず、
+  **他の参照で確定している組み方を組み合わせて確定させた**。
+  由来は `assets/css/blog-archive.css` / `event-archive.css` の冒頭コメントに
+  1行ずつ書いてある。新しく決めたのは以下だけ:
+    - ブログ … カードを何列で組むか（auto-fill minmax 320px）／動画に再生マークを出す
+    - イベント … 開催予定を大きく1件、終了分を下に行で並べる
+  ベース（nav / page-hero / footer）は確定済みの `news-archive.css` を併用し、
+  追加分だけを別ファイルに分けてある。確定値は触っていない。
 - 参照HTMLの `.tpl-flag`（「テンプレート — 内容を差し替えてください」の付箋）は
   差し替え目印なのでテンプレートから出力しない。CSS定義だけ逐語移植で残してある。
 

@@ -62,6 +62,7 @@ $fail = 0;
 foreach ($scenarios as $label => $s) {
     $T['context'] = $s['context'];
     $T['fields']  = $s['fields'];
+    unset($T['loop_all']);
     $T['loop']    = array_map(fn($id)=>get_post($id), $s['loop'] ?? []);
     $T['current'] = $T['loop'][0] ?? null;
     if (!empty($s['no_event'])) { $T['fields']['event_status'] = null; }

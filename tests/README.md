@@ -31,6 +31,7 @@ PHP 8.1+ と python3 が必要。node があれば JS の構文チェックも�
 | `check_css.py` | CSS が参照HTMLの逐語移植のままか（CLAUDE.md #3） |
 | `check_acf.py` | ACF JSON の妥当性・キー重複・brewery の価格系フィールド |
 | `check_new.php` / `check_new2.php` | 各テンプレートの要素が出ているか |
+| `preview.php` | ブラウザで開けるプレビューHTMLを書き出す（下記） |
 
 ## `has_archive` の注意点
 
@@ -47,3 +48,16 @@ CPT の `rewrite` は全て `false`（URL の定義元は `inc/rewrite.php` だ�
 `has_archive` を真にしても URL の定義元は `inc/rewrite.php` のまま。
 
 `check_hierarchy.php` がこれを見張っている。
+
+## プレビュー
+
+```sh
+php tests/preview.php
+```
+
+`tests/.preview/` にブラウザで開けるHTMLを書き出す（gitignore 済み）。
+テンプレートを実際に実行し、CSSをインライン化して1枚にまとめたもの。
+画像は `docs/design_handoff_wordpress/uploads/` の実ファイルを指す。
+
+参照HTMLが無い `/blog/` と `/events/` のデザインを目視で確認するために作った。
+他のテンプレートを見たいときは `preview()` の呼び出しを足す。

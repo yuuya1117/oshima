@@ -27,8 +27,8 @@ themes/torasake/          テーマ本体
   single.php              お知らせ詳細
   single-event.php        イベント告知
   single-past_event.php   過去開催レポート
-  archive-event.php       イベント一覧 ※参照HTML無し・暫定デザイン
-  archive-blog_post.php   ブログ一覧 ※参照HTML無し・暫定デザイン
+  archive-event.php       イベント一覧 ※参照HTML無し・確定パターンの組み合わせ
+  archive-blog_post.php   ブログ一覧 ※参照HTML無し・確定パターンの組み合わせ
   single-blog_post.php    ブログ記事 / 蔵元インタビュー
   page-sponsors.php       協賛ページ
   index.php               フォールバック
@@ -49,6 +49,9 @@ sh tests/run-all.sh
 WordPress 本体を起動せずに全テンプレートを実行し、CLAUDE.md の各ルール
 （価格非表示・方式A・CSS逐語移植・テンプレート階層）を機械的に検査する。
 実機での確認の代わりにはならない。詳しくは [`tests/README.md`](tests/README.md)。
+
+見た目を確認したいときは `php tests/preview.php`。`tests/.preview/` に
+ブラウザで開けるHTMLが出る。
 
 ## 必要環境
 

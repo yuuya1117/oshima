@@ -131,9 +131,13 @@ function is_singular($t=''){
 }
 
 // ── ループ ─────────────────────────────────────────────
-function have_posts(){ return !empty($GLOBALS['T']['loop']); }
+function have_posts(){
+    if (!isset($GLOBALS['T']['loop_all'])) { $GLOBALS['T']['loop_all'] = $GLOBALS['T']['loop']; }
+    return !empty($GLOBALS['T']['loop']);
+}
 function the_post(){ $GLOBALS['T']['current'] = array_shift($GLOBALS['T']['loop']); }
 function wp_reset_postdata(){}
+function rewind_posts(){ $GLOBALS['T']['loop'] = $GLOBALS['T']['loop_all'] ?? $GLOBALS['T']['loop']; }
 function get_the_ID(){ return $GLOBALS['T']['current']->ID ?? 0; }
 function get_post($id=null){ foreach($GLOBALS['T']['posts'] as $p) if($p->ID==$id) return $p; return null; }
 function get_post_status($id){ return get_post($id)?->post_status ?? false; }
@@ -143,20 +147,42 @@ function get_permalink($p=null){ $id = $p instanceof WP_Post ? $p->ID : ($p ?: g
 function the_permalink(){ echo esc_url(get_permalink()); }
 function get_the_excerpt($p=null){ return 'ダミーの抜粋テキストです。'; }
 function get_the_date($f='Y.m.d',$p=null){ return date($f, strtotime('2026-07-03')); }
-function has_post_thumbnail($p=null){ return true; }
-function get_the_post_thumbnail($p=null,$s='',$a=[]){ return '<img src="thumb.jpg" alt="">'; }
+function has_post_thumbnail($p=null){
+    $id = $p instanceof WP_Post ? $p->ID : ($p ?: get_the_ID());
+    return isset($GLOBALS['T']['img']['post'.$id]) || empty($GLOBALS['T']['img']);
+}
+function get_the_post_thumbnail($p=null,$s='',$a=[]){
+    $id = $p instanceof WP_Post ? $p->ID : ($p ?: get_the_ID());
+    return '<img src="'.esc_attr(torasake_stub_img('post'.$id)).'" alt="'.esc_attr($a['alt']??'').'" loading="lazy">';
+}
 function the_post_thumbnail($s='',$a=[]){ echo get_the_post_thumbnail(null,$s,$a); }
 function get_the_post_thumbnail_url($p=null,$s=''){ return 'https://torasake.test/uploads/thumb.jpg'; }
 function get_the_post_thumbnail_caption($p=null){ return 'キャプション'; }
 function the_content(){ echo '<p>本文</p>'; }
 function get_previous_post(){ return $GLOBALS['T']['posts'][0] ?? null; }
 function get_next_post(){ return $GLOBALS['T']['posts'][1] ?? null; }
-function the_posts_pagination($a=[]){ echo '<nav class="news-pagination"></nav>'; }
-function post_type_archive_title($p='',$d=true){ echo '参加酒蔵一覧'; }
+function the_posts_pagination($a=[]){
+    // WP は max_num_pages <= 1 のとき何も出力しない。スタブは常に1ページ扱い。
+    if (!empty($GLOBALS['T']['paginate'])) echo '<nav class="news-pagination"><div class="nav-links"></div></nav>';
+}
+function post_type_archive_title($p='',$d=true){
+    $labels = ['archive-brewery'=>'参加酒蔵一覧','archive-event'=>'イベント','archive-blog'=>'ブログ'];
+    $t = $labels[ctx()] ?? 'アーカイブ';
+    if ($d) echo esc_html($t);
+    return $t;
+}
 function the_archive_title(){ echo 'アーカイブ'; }
 function get_search_query(){ return 'テスト'; }
 function selected($a,$b,$e=true){ $r = ((string)$a===(string)$b)?" selected='selected'":''; if($e) echo $r; return $r; }
-function wp_get_attachment_image($id,$s='',$icon=false,$attr=[]){ return '<img src="a.jpg" alt="'.esc_attr($attr['alt']??'').'">'; }
+function torasake_stub_img($id){
+    // プレビュー時は実画像を指す（tests/preview.php が $T['img'] を入れる）。
+    return $GLOBALS['T']['img'][$id] ?? ($GLOBALS['T']['img']['*'] ?? 'a.jpg');
+}
+function wp_get_attachment_image($id,$s='',$icon=false,$attr=[]){
+    $extra = '';
+    foreach ($attr as $k=>$v) { if (!in_array($k,['alt','loading'],true)) $extra .= ' '.$k.'="'.esc_attr((string)$v).'"'; }
+    return '<img src="'.esc_attr(torasake_stub_img($id)).'" alt="'.esc_attr($attr['alt']??'').'" loading="lazy"'.$extra.'>';
+}
 function wp_get_attachment_image_src($id,$s=''){ return ['https://torasake.test/uploads/a.jpg',100,100,false]; }
 
 // ── タクソノミー ───────────────────────────────────────
@@ -204,7 +230,14 @@ function get_template_part($slug,$name=null,$args=[]){
 function get_post_type_archive_link($t){ return false; }
 
 // ── ACF ────────────────────────────────────────────────
-function get_field($sel,$id=false,$fmt=true){ return $GLOBALS['T']['fields'][$sel] ?? null; }
+function get_field($sel,$id=false,$fmt=true){
+    // 一覧テンプレートは複数投稿を跨ぐので、投稿ごとの値があればそちらを優先する。
+    $pid = $id ?: get_the_ID();
+    if (isset($GLOBALS['T']['fields_by_post'][$pid])) {
+        return $GLOBALS['T']['fields_by_post'][$pid][$sel] ?? null;
+    }
+    return $GLOBALS['T']['fields'][$sel] ?? null;
+}
 function acf_add_options_page($a){}
 function wp_count_posts($t='post',$p='readable'){ $o=new stdClass; $o->publish = count(array_filter($GLOBALS['T']['posts'], fn($x)=>$x->post_type===$t)); return $o; }
 

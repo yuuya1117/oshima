@@ -53,6 +53,7 @@ $fail = 0;
 foreach ($scenarios as $label => $s) {
     $T['context'] = $s['ctx'];
     $T['fields']  = $s['f'];
+    unset($T['loop_all']);
     $T['loop']    = array_map(fn($i)=>get_post($i), $s['loop']);
     $T['current'] = $T['loop'][0] ?? null;
     ob_start();

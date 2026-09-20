@@ -1,0 +1,100 @@
+/*
+ * ブログ一覧（archive-blog_post.php）
+ *
+ * ★ このファイルだけは参照HTMLが存在しない。
+ *   ハンドオフにあるのは記事単体（blog-single-template.html）のみ。
+ *
+ *   ただしゼロから作ってはいない。確定済みの組み方を組み合わせてある:
+ *     - ベース（nav / page-hero / footer）  … news-archive.css をそのまま併用
+ *     - カード構造（.im 16:9 → cat → 見出し → meta）… top-page.html の .news-card
+ *     - 画像の hover ズーム（scale 1.05 / .7s）      … 同上
+ *     - 金のカテゴリバッジ                          … blog-single-template.html の .article-cat
+ *     - 影・角丸・ボーダー                          … 各参照の確定値をそのまま使用
+ *
+ *   新しく決めたのは「何列で組むか」と「動画に再生マークを出すか」の2点だけ。
+ */
+
+/* news-archive.css の main は記事一覧向けに 760px。カード2列にするため広げる。 */
+.blog-main { max-width: 1040px; }
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem 1.8rem;
+}
+
+.blog-card { display: block; text-decoration: none; color: var(--text); }
+
+/* 16:9 ─ 記事単体の動画枠（padding-top 56.25%）と比率を合わせる */
+.blog-card .im {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  background: linear-gradient(160deg, #eef8fd, #dceefa);
+  box-shadow: 0 10px 28px -12px rgba(30, 60, 100, 0.22);
+}
+.blog-card .im img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.blog-card:hover .im img { transform: scale(1.05); }
+
+/* 動画つきの記事だけ再生マークを出す */
+.blog-card .play {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 52px; height: 52px; border-radius: 50%;
+  background: rgba(230, 51, 41, 0.92);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 24px rgba(230, 51, 41, 0.38);
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.blog-card:hover .play { transform: translate(-50%, -50%) scale(1.09); }
+.blog-card .play::before {
+  content: '';
+  border-style: solid;
+  border-width: 8px 0 8px 13px;
+  border-color: transparent transparent transparent #fff;
+  margin-left: 3px;
+}
+
+.blog-card .cat {
+  display: inline-block;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.66rem; font-weight: 700; letter-spacing: 0.15em;
+  background: var(--gold); color: #fff;
+  padding: 0.25rem 0.8rem; border-radius: 12px;
+}
+
+.blog-card h3 {
+  font-size: 1.08rem; font-weight: 800; letter-spacing: 0.02em; line-height: 1.6;
+  margin: 0.7rem 0 0.45rem;
+  transition: color 0.2s;
+  text-wrap: pretty;
+}
+.blog-card:hover h3 { color: var(--red); }
+
+.blog-card .excerpt {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.82rem; color: var(--text-dim); line-height: 1.85;
+  margin-bottom: 0.6rem;
+  text-wrap: pretty;
+}
+
+.blog-card .meta {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.74rem; color: var(--text-dim); letter-spacing: 0.06em;
+  display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;
+}
+.blog-card .meta .brewery { display: inline-flex; align-items: center; gap: 0.4rem; }
+.blog-card .meta .brewery::before {
+  content: ''; width: 5px; height: 5px; border-radius: 50%;
+  background: var(--gold); flex: none;
+}
+
+@media (max-width: 680px) {
+  .blog-grid { grid-template-columns: 1fr; gap: 1.8rem; }
+}
