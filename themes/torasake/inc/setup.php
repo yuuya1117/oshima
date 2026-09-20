@@ -52,6 +52,26 @@ function torasake_pre_get_posts( WP_Query $query ): void {
 		$query->set( 'order', 'ASC' );
 	}
 
+	// イベント一覧は開催日の新しい順。日付未入力のものが落ちないよう
+	// meta_query で「あり／なし」を分けて並べる。
+	if ( $query->is_post_type_archive( 'event' ) ) {
+		$query->set( 'posts_per_page', 20 );
+		$query->set(
+			'meta_query',
+			array(
+				'relation'   => 'OR',
+				'dated'      => array( 'key' => 'event_date', 'compare' => 'EXISTS' ),
+				'undated'    => array( 'key' => 'event_date', 'compare' => 'NOT EXISTS' ),
+			)
+		);
+		$query->set( 'orderby', array( 'dated' => 'DESC', 'date' => 'DESC' ) );
+	}
+
+	// ブログ一覧は投稿日の新しい順（既定のまま）。
+	if ( $query->is_post_type_archive( 'blog_post' ) ) {
+		$query->set( 'posts_per_page', 12 );
+	}
+
 	// お知らせ一覧のカテゴリチップもクライアント側で絞り込むので、1ページに多めに出す。
 	if ( $query->is_home() ) {
 		$query->set( 'posts_per_page', 20 );

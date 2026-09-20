@@ -31,8 +31,9 @@ torasake.com（静的HTML）をWordPressフルカスタムテーマへ移行し�
   「WordPress 実装で足した分」の見出しを付けて分離してある。確定値の側を書き換えない。
 - なお `design_handoff_wordpress/README.md` の「トップページ＝紺基調 `--bg:#050c18`」は
   v5 の記述で、確定版の v6（`reference/top-page.html`）は水色基調 `--bg:#eaf6fc`。参照HTMLを優先する。
-- **`archive-blog_post.php` だけは参照HTMLが存在しない**（ハンドオフはブログ記事単体のみ）。
-  暫定デザインなので、確定版が出たら差し替える。
+- **`archive-blog_post.php` と `archive-event.php` は参照HTMLが存在しない**
+  （ハンドオフにあるのは記事・イベント単体のみ）。お知らせ一覧の確定済みCSSを
+  流用した暫定デザインなので、確定版が出たら差し替える。
 - 参照HTMLの `.tpl-flag`（「テンプレート — 内容を差し替えてください」の付箋）は
   差し替え目印なのでテンプレートから出力しない。CSS定義だけ逐語移植で残してある。
 
@@ -48,9 +49,34 @@ themes/torasake/     テーマ本体
   assets/css|js/     テンプレート別アセット
   template-parts/    ナビ・フッター・トップの各セクション
 docs/                ハンドオフ資料一式と移行手順
+tests/               WordPress を起動しない静的検証ハーネス
 ```
+
+### 5. `rewrite => false` でも `has_archive` は真値にする
+CPT の `rewrite` は全て `false`（URL の定義元は `inc/rewrite.php` だけ）。
+**ただし一覧を持つ CPT の `has_archive` を `false` にしてはいけない。**
+
+`WP_Query::parse_query()` は `! empty( $post_type_obj->has_archive )` のときだけ
+`is_post_type_archive` を立てる。`false` だと `/breweries/` `/events/` `/blog/` で
+`is_archive` も立たず、最後のフォールバックで `is_home` になり
+`home.php`（お知らせ一覧）が出てしまう。
+
+`rewrite` が `false` なので `WP_Post_Type::add_rewrite_rules()` は何のルールも
+足さない（追加処理は全て `false !== $this->rewrite` の内側）。つまり
+`has_archive` を真にしても URL の定義元は `inc/rewrite.php` のまま。
+
+`tests/check_hierarchy.php` がこれを見張っている。
+
+## 検証
+
+```sh
+sh tests/run-all.sh
+```
+
+WordPress を起動せずにテンプレートを実行する静的ハーネス。
+上の4ルールをそれぞれ機械的に検査している。詳しくは `tests/README.md`。
+**実機での確認の代わりにはならない。**
 
 ## 開発メモ
 - PHP 8.1+ / WordPress 6.4+ / ACF PRO 必須（repeater・relationship・options page を使う）。
-- CPT の `rewrite` は全て `false`。URL は `inc/rewrite.php` が唯一の定義元。
 - テーマ切り替え時に `after_switch_theme` で初期セットアップが走る（冪等）。

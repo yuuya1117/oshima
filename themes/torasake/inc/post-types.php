@@ -5,6 +5,14 @@
  * rewrite は全 CPT で false にしてある。URL は inc/rewrite.php で手書きする
  * （方式A: 既存URLの .html を正規URLとして維持するため、自動生成では形が合わない）。
  *
+ * ただし has_archive は一覧を持つ CPT で真値にしておく必要がある。
+ * WP_Query::parse_query() は `! empty( $post_type_obj->has_archive )` のときだけ
+ * is_post_type_archive を立てるため、false のままだと /breweries/ などで
+ * is_archive も立たず is_home にフォールバックして home.php が出てしまう。
+ * rewrite が false なので WP_Post_Type::add_rewrite_rules() は
+ * 何のルールも足さない（追加処理は全て `false !== $this->rewrite` の内側）。
+ * つまり has_archive を真にしてもURLの定義元は inc/rewrite.php のまま。
+ *
  * お知らせ(news)は標準の post をそのまま使う。CPT 化しない。
  *
  * @package torasake
@@ -20,6 +28,7 @@ function torasake_register_post_types(): void {
 		'public'       => true,
 		'show_in_rest' => true,
 		'rewrite'      => false,
+		// 一覧を持つ CPT は個別に has_archive を上書きする（上のコメント参照）。
 		'has_archive'  => false,
 		'menu_position'=> 20,
 	);
@@ -30,6 +39,7 @@ function torasake_register_post_types(): void {
 			$shared,
 			array(
 				'labels'        => torasake_pt_labels( '酒蔵', 'Brewery' ),
+				'has_archive'   => 'breweries',
 				'menu_icon'     => 'dashicons-store',
 				'supports'      => array( 'title', 'editor', 'thumbnail', 'excerpt', 'page-attributes', 'revisions' ),
 				'taxonomies'    => array( 'prefecture', 'event_edition' ),
@@ -44,8 +54,9 @@ function torasake_register_post_types(): void {
 		array_merge(
 			$shared,
 			array(
-				'labels'     => torasake_pt_labels( 'イベント', 'Event' ),
-				'menu_icon'  => 'dashicons-tickets-alt',
+				'labels'      => torasake_pt_labels( 'イベント', 'Event' ),
+				'has_archive' => 'events',
+				'menu_icon'   => 'dashicons-tickets-alt',
 				'supports'   => array( 'title', 'editor', 'thumbnail', 'excerpt', 'revisions' ),
 				'taxonomies' => array( 'event_edition' ),
 			)
@@ -57,6 +68,7 @@ function torasake_register_post_types(): void {
 		array_merge(
 			$shared,
 			array(
+				// /past/ は固定ページで受けるので一覧アーカイブは持たない。
 				'labels'     => torasake_pt_labels( '過去開催', 'Past Event' ),
 				'menu_icon'  => 'dashicons-archive',
 				'supports'   => array( 'title', 'editor', 'thumbnail', 'excerpt', 'revisions' ),
@@ -70,8 +82,9 @@ function torasake_register_post_types(): void {
 		array_merge(
 			$shared,
 			array(
-				'labels'    => torasake_pt_labels( 'ブログ', 'Blog' ),
-				'menu_icon' => 'dashicons-edit-large',
+				'labels'      => torasake_pt_labels( 'ブログ', 'Blog' ),
+				'has_archive' => 'blog',
+				'menu_icon'   => 'dashicons-edit-large',
 				'supports'  => array( 'title', 'editor', 'thumbnail', 'excerpt', 'revisions' ),
 			)
 		)
