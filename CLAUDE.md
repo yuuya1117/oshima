@@ -21,6 +21,9 @@ torasake.com（静的HTML）をWordPressフルカスタムテーマへ移行し�
 - Peatixリンクの `?utm_source=` を落とさない（流入計測が切れる）。
 - `/uploads/` は実ディレクトリのまま残す。メディアライブラリに移して
   `/wp-content/uploads/YYYY/MM/` にしない（画像検索流入とOGPキャッシュが切れる）。
+- **逆に旧 `.html`（`/index.html` `/news/*.html` `/past/index.html`）は本番切替時に退避する。**
+  WPの `.htaccess` は実ファイルがあればWPに渡さないため、残っているとテーマの
+  リライトが発火せず古いHTMLが出続ける（エラーは出ない）。`docs/移行手順.md` 4-2。
 
 ### 3. デザインは参照HTMLが確定版
 `docs/design_handoff_wordpress/reference/` の HTML / CSS が確定版。色・余白・タイポは確定値。
