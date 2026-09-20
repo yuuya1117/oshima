@@ -203,7 +203,16 @@ function get_term_by($f,$v,$tax){
 }
 function term_exists($t,$tax=''){ return ['term_id'=>1]; }
 function wp_insert_term($n,$tax,$a=[]){ return ['term_id'=>1]; }
-function get_the_terms($id,$tax){ return $tax==='prefecture' ? [new WP_Term(['term_id'=>11,'name'=>'山口県','slug'=>'yamaguchi'])] : []; }
+function get_the_terms($id,$tax){
+    if ($tax==='prefecture') {
+        $name = $GLOBALS['T']['pref_by_post'][$id] ?? '山口県';
+        return [new WP_Term(['term_id'=>crc32($name),'name'=>$name,'slug'=>'pref'])];
+    }
+    if ($tax==='event_edition') {
+        return [new WP_Term(['term_id'=>22,'name'=>'TORASAKE mini','slug'=>'torasake-mini-2026','taxonomy'=>'event_edition'])];
+    }
+    return [];
+}
 function wp_get_post_terms($id,$tax,$a=[]){ return ['torasake-2026','torasake-mini-2026']; }
 function get_the_category($id=false){ return [ new WP_Term(['term_id'=>1,'name'=>'開催報告','slug'=>'report']) ]; }
 function get_page_by_path($p,$o=OBJECT,$t='page'){ return new WP_Post(['ID'=>99,'post_title'=>'お知らせ','post_name'=>$p]); }

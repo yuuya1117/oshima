@@ -90,7 +90,7 @@ while ( have_posts() ) :
 							0 === $i ? 'large' : 'medium_large',
 							false,
 							array(
-								'alt'       => $photo['alt'] ?: get_the_title( $past_id ),
+								'alt'       => ( $photo['alt'] ?? '' ) ?: get_the_title( $past_id ),
 								'loading'   => 'lazy',
 								'data-full' => wp_get_attachment_image_url( (int) $photo['ID'], 'full' ),
 							)

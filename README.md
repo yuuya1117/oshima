@@ -40,6 +40,58 @@ docs/
 tests/                        WordPress を起動しない静的検証ハーネス
 ```
 
+## 見る
+
+### 1. プレビュー（WordPress不要・いちばん手軽）
+
+```sh
+php tests/preview.php
+```
+
+`tests/.preview/index.html` をブラウザで開くと、全テンプレートのプレビューを
+目次から行き来できる。テンプレートを実際に実行してCSSを埋め込んだ静的HTML。
+
+見た目とマークアップの確認用。**JSは動かない**（検索・フィルタ・カウントダウン・
+ライトボックス等）。中身はダミーデータ。
+
+### 2. ローカルのWordPressで動かす（クリックして回れる）
+
+JSの挙動・管理画面・URLの疎通まで見たいとき。
+
+**Local（いちばん簡単。GUIだけで完結）**
+
+1. https://localwp.com/ から Local をインストール
+2. 「Create a new site」でサイトを作る（PHP 8.1以上を選ぶ）
+3. 作ったサイトの `app/public/wp-content/themes/` を開く
+4. このリポジトリの `themes/torasake` をそこにコピー（またはシンボリックリンク）
+5. 管理画面 → プラグイン → **ACF PRO** を入れて有効化（必須）
+6. 外観 → テーマ → 「TORASAKE」を有効化
+   → 有効化時に固定ページ・初期ターム・リライトルールが自動で入る
+7. 設定 → パーマリンク を開いて「変更を保存」（リライトの再書き出し）
+8. イベントを1件作り `event_status` を「開催予定」にする → トップがその回の告知になる
+
+**wp-env（Docker と Node がある人向け）**
+
+```sh
+npm -g i @wordpress/env
+cd /path/to/this/repo
+cat > .wp-env.json <<'JSON'
+{ "themes": [ "./themes/torasake" ], "phpVersion": "8.2" }
+JSON
+wp-env start          # http://localhost:8888  (admin / password)
+```
+
+ACF PRO は有償プラグインなので管理画面から手動で入れる。
+
+**中身が空だと寂しいので**、`docs/design_handoff_wordpress/uploads/` の画像を
+メディアにアップロードし、`tests/preview.php` のダミーデータを参考に
+酒蔵・イベントを数件登録すると本番に近い状態になる。
+
+### 3. ステージングに上げる
+
+公開前のチェックリストは [`docs/移行手順.md`](docs/移行手順.md) の5章。
+全URLに200が返るかの確認コマンドも載せてある。
+
 ## 検証
 
 ```sh
@@ -49,9 +101,6 @@ sh tests/run-all.sh
 WordPress 本体を起動せずに全テンプレートを実行し、CLAUDE.md の各ルール
 （価格非表示・方式A・CSS逐語移植・テンプレート階層）を機械的に検査する。
 実機での確認の代わりにはならない。詳しくは [`tests/README.md`](tests/README.md)。
-
-見た目を確認したいときは `php tests/preview.php`。`tests/.preview/` に
-ブラウザで開けるHTMLが出る。
 
 ## 必要環境
 

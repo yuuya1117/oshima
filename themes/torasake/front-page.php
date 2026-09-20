@@ -188,7 +188,7 @@ $food_head  = (string) torasake_field( 'food_heading', $event_id );
 							'large',
 							false,
 							array(
-								'alt'     => $food_image['alt'] ?: (string) torasake_field( 'venue_name', $event_id ),
+								'alt'     => ( $food_image['alt'] ?? '' ) ?: (string) torasake_field( 'venue_name', $event_id ),
 								'loading' => 'lazy',
 								'style'   => 'object-position:' . esc_attr( torasake_field( 'food_image_position', $event_id, '50% 50%' ) ),
 							)
