@@ -39,6 +39,8 @@ docs/
   本番構築手順.md             サーバー構築からの実作業手順
 
 tests/                        WordPress を起動しない静的検証ハーネス
+tools/                        WXRインポートファイルの生成・検証
+import/                       生成済みインポートファイル
 ```
 
 ## 見る
@@ -110,7 +112,8 @@ WordPress 本体を起動せずに全テンプレートを実行し、CLAUDE.md 
 
 - WordPress 6.4+
 - PHP 8.1+
-- **ACF PRO**（repeater / relationship / gallery / options page を使う）
+- **Secure Custom Fields**（無料）または **ACF PRO**
+  repeater 13箇所・gallery・オプションページを使うため、ACFの無料版では動かない
 
 ## セットアップ
 

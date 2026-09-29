@@ -87,5 +87,10 @@ WordPress を起動せずにテンプレートを実行する静的ハーネス�
 **実機での確認の代わりにはならない。**
 
 ## 開発メモ
-- PHP 8.1+ / WordPress 6.4+ / ACF PRO 必須（repeater・relationship・options page を使う）。
+- PHP 8.1+ / WordPress 6.4+。
+- カスタムフィールドは **Secure Custom Fields（無料）または ACF PRO** が必須。
+  repeater 13箇所・gallery 1箇所・オプションページ 1箇所を使うため、
+  ACF の無料版では動かない。SCF は ACF の直接フォークで関数名・DB構造とも同じ。
+  未有効化のときは管理画面に警告を出す（`inc/acf.php`）。
+- コンテンツの初期投入は `import/torasake-content.xml`（`tools/make-wxr.py` が生成）。
 - テーマ切り替え時に `after_switch_theme` で初期セットアップが走る（冪等）。

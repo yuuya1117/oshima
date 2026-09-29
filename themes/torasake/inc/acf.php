@@ -86,3 +86,31 @@ function torasake_acf_options_page(): void {
 	);
 }
 add_action( 'acf/init', 'torasake_acf_options_page' );
+
+/**
+ * ACF（または Secure Custom Fields）が無いときに管理画面で知らせる。
+ *
+ * 入力欄が出ないだけで白画面にはならないので、気づかずに
+ * 「フィールドが表示されない」と悩むのを防ぐ。
+ */
+function torasake_acf_missing_notice(): void {
+	if ( function_exists( 'get_field' ) || ! current_user_can( 'activate_plugins' ) ) {
+		return;
+	}
+	?>
+	<div class="notice notice-error">
+		<p>
+			<strong>TORASAKEテーマ:</strong>
+			カスタムフィールドのプラグインが有効になっていません。
+			酒蔵・イベント等の入力欄が表示されません。
+		</p>
+		<p>
+			<strong>Secure Custom Fields</strong>（WordPress.org公式・無料）か
+			<strong>ACF PRO</strong>のどちらかを有効化してください。
+			このテーマは repeater / gallery / オプションページを使うため、
+			ACF の<em>無料版</em>では動作しません。
+		</p>
+	</div>
+	<?php
+}
+add_action( 'admin_notices', 'torasake_acf_missing_notice' );
