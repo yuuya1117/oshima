@@ -292,7 +292,7 @@
             "label": "About 見出し",
             "name": "lead_heading",
             "type": "text",
-            "instructions": "<br> で改行できる。",
+            "instructions": "＜br＞ で改行できる。",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -308,7 +308,7 @@
             "label": "About リード",
             "name": "lead_copy",
             "type": "textarea",
-            "instructions": "<span class=\"em\"> で赤字強調できる。",
+            "instructions": "＜span class=\"em\"＞ で赤字強調できる。",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -447,7 +447,7 @@
                     "label": "内容",
                     "name": "value",
                     "type": "text",
-                    "instructions": "<br> で改行できる。",
+                    "instructions": "＜br＞ で改行できる。",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -557,7 +557,7 @@
             "label": "料理セクション見出し",
             "name": "food_heading",
             "type": "text",
-            "instructions": "<br> で改行できる。空ならセクションごと非表示。",
+            "instructions": "＜br＞ で改行できる。空ならセクションごと非表示。",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -846,7 +846,7 @@
             "label": "スティッキーCTAの文言",
             "name": "sticky_cta_text",
             "type": "text",
-            "instructions": "<b> で強調できる。event_status が終了のときは表示しない。",
+            "instructions": "＜b＞ で強調できる。event_status が終了のときは表示しない。",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -1011,7 +1011,7 @@
             "label": "SEO: タイトル上書き",
             "name": "seo_title",
             "type": "text",
-            "instructions": "現行HTMLの <title> をそのまま移す欄。空なら投稿タイトルから組み立てる。",
+            "instructions": "現行HTMLの ＜title＞ をそのまま移す欄。空なら投稿タイトルから組み立てる。",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {

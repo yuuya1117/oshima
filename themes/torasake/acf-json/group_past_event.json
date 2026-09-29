@@ -286,7 +286,7 @@
             "label": "SEO: タイトル上書き",
             "name": "seo_title",
             "type": "text",
-            "instructions": "現行HTMLの <title> をそのまま移す欄。空なら投稿タイトルから組み立てる。",
+            "instructions": "現行HTMLの ＜title＞ をそのまま移す欄。空なら投稿タイトルから組み立てる。",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
