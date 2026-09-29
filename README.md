@@ -43,6 +43,24 @@ tools/                        インポートファイルの生成・検証、UR
 import/                       生成済みインポートファイル
 ```
 
+## ファイルの場所
+
+| 欲しいもの | 場所 |
+|---|---|
+| テーマ本体 | `themes/torasake/` |
+| 本番構築の手順書 | `docs/本番構築手順.md`（直接入れるルートは**付録A**） |
+| コンテンツのインポートファイル | `import/torasake-content.xml` |
+| URL疎通チェック | `tools/check-urls.sh` |
+| デザインの元資料 | `docs/design_handoff_wordpress/` |
+
+テーマをサーバーに入れるには、`themes/torasake` フォルダを zip にして
+管理画面 → 外観 → テーマ → 新規追加 → テーマのアップロード、
+または `wp-content/themes/` に FTP でそのまま置く。
+
+```sh
+cd themes && zip -r ../torasake-theme.zip torasake
+```
+
 ## 見る
 
 ### 1. プレビュー（WordPress不要・いちばん手軽）

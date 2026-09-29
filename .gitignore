@@ -17,3 +17,7 @@ vendor/
 
 # プレビュー出力（tests/preview.php が生成する）
 /tests/.preview/
+
+# 配布用に一時生成するもの
+/torasake-theme.zip
+/本番構築手順.html
