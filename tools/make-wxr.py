@@ -402,6 +402,39 @@ past_items = item(
     metas=past_meta,
 )
 
+# 6/27 の回も past_event として入れる。
+# トップの「前回の開催」カードは past_event のうち event_date が最新のものを出すため、
+# ここに入れておかないと2025年の Vol.2 が「前回」として表示されてしまう。
+# 文面は reference/top-page.html のアーカイブセクションから。
+past_items += item(
+    title='TORASAKE -虎ノ酒- 2026', name='torasake-2026', post_type='past_event',
+    post_id=next_id(), date='2026-06-27 10:00:00',
+    excerpt='虎ノ門ヒルズ ステーションタワー 4F・B2Fの2フロアで開催。'
+            '蔵人との語らいとともに、多くのご来場をいただき盛況のうちに終了しました。',
+    terms=[('event_edition', 'torasake-2026', EDITIONS['torasake-2026'])],
+    metas=''.join([
+        meta('_thumbnail_id', CROWD),
+        acf('past_event', 'event_date', '20260627'),
+        acf('past_event', 'venue_name', '虎ノ門ヒルズ ステーションタワー'),
+        acf('past_event', 'report_heading', '当日の様子'),
+        acf('past_event', 'report_body',
+            '<p class="body">2026年6月27日（土）、虎ノ門ヒルズ ステーションタワーにて開催した'
+            '「TORASAKE -虎ノ酒- 2026」には、全国から<strong>32の酒蔵</strong>が集結しました。</p>'
+            '<p class="body">4F・B2Fの2フロアを使った回遊型のイベントとして、'
+            '蔵元と来場者が直接言葉を交わす一日となりました。</p>'),
+        acf_repeater('past_event', 'stats', [
+            {'number': '32', 'unit_suffix': '蔵', 'label': '参加酒蔵'},
+            {'number': '2', 'unit_suffix': 'フロア', 'label': '会場規模'},
+        ]),
+        acf_repeater('past_event', 'info_list', [
+            {'key_en': 'EVENT', 'value': 'TORASAKE -虎ノ酒- 2026', 'url': ''},
+            {'key_en': 'DATE', 'value': '2026年6月27日（土）', 'url': ''},
+            {'key_en': 'VENUE', 'value': '虎ノ門ヒルズ ステーションタワー 4F・B2F', 'url': ''},
+            {'key_en': 'PARTICIPATING BREWERIES', 'value': '全国32蔵', 'url': ''},
+        ]),
+    ]),
+)
+
 # ── タクソノミーの term 定義 ──────────────────────────────────
 terms_xml = ''
 for pref in sorted({b['pref'] for b in BREWERIES}):
@@ -455,4 +488,4 @@ OUT.write_text(xml, encoding='utf-8')
 print(f'  ✓ {OUT.relative_to(ROOT)}  ({OUT.stat().st_size / 1024:.0f}KB)')
 print(f'    添付画像 {len(IMAGES)}件 / 酒蔵 {len(BREWERIES)}件 / お知らせ {len(NEWS)}件'
       f'（公開{sum(1 for n in NEWS if n["status"] == "publish")}・下書き{sum(1 for n in NEWS if n["status"] == "draft")}）'
-      f' / イベント 2件 / 過去開催 1件')
+      f' / イベント 2件 / 過去開催 2件')

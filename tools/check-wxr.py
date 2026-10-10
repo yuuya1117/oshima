@@ -53,7 +53,7 @@ print()
 ok(len(by_type.get('brewery', [])) == 33, '酒蔵 33件')
 ok(len(by_type.get('post', [])) == 5, 'お知らせ 5件')
 ok(len(by_type.get('event', [])) == 2, 'イベント 2件')
-ok(len(by_type.get('past_event', [])) == 1, '過去開催 1件')
+ok(len(by_type.get('past_event', [])) == 2, '過去開催 2件（Vol.2 と 6/27の回）')
 
 # スラッグが移行マップと完全一致するか
 map_slugs = set(x.strip() for x in re.search(
@@ -113,6 +113,18 @@ for it in items:
             if v not in att_ids:
                 missing.add(v)
 ok(not missing, 'アイキャッチの参照先が全て添付アイテムに存在', str(missing))
+
+# トップの「前回の開催」に出るのは past_event のうち event_date が最新のもの。
+# 6/27 の回を past_event として入れ忘れると2025年の Vol.2 が出てしまう。
+dates = {}
+for it in by_type.get('past_event', []):
+    title = it.find('title', NS).text
+    for pm in it.findall('wp:postmeta', NS):
+        if (pm.find('wp:meta_key', NS).text or '') == 'event_date':
+            dates[title] = pm.find('wp:meta_value', NS).text
+newest = max(dates, key=lambda k: dates[k]) if dates else None
+ok(newest == 'TORASAKE -虎ノ酒- 2026',
+   f'トップの「前回の開催」に出るのは 6/27 の回', f'いま出るのは {newest} ({dates})')
 
 # 価格が酒蔵に入っていないこと（CLAUDE.md #1）
 price_in_brewery = []
