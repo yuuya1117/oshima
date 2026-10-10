@@ -26,28 +26,39 @@ function torasake_current_event(): ?WP_Post {
 		return $cached;
 	}
 
+	// meta_query と meta_key と orderby=meta_value を併用すると
+	// 組み合わせ次第で意図しないSQLになる。イベントはたかだか数件なので、
+	// 全件取ってPHPで絞り込む。クエリの組み立てに依存しないぶん確実。
 	$query = new WP_Query(
 		array(
 			'post_type'              => 'event',
-			'posts_per_page'         => 1,
+			'posts_per_page'         => 50,
 			'post_status'            => 'publish',
 			'no_found_rows'          => true,
 			'ignore_sticky_posts'    => true,
 			'update_post_term_cache' => false,
-			'meta_query'             => array(
-				array(
-					'key'     => 'event_status',
-					'value'   => array( '開催予定', '開催中' ),
-					'compare' => 'IN',
-				),
-			),
-			'meta_key'               => 'event_date',
-			'orderby'                => 'meta_value',
-			'order'                  => 'ASC',
 		)
 	);
 
-	$cached = $query->have_posts() ? $query->posts[0] : null;
+	$upcoming = array();
+	foreach ( $query->posts as $post ) {
+		$status = (string) torasake_field( 'event_status', $post->ID );
+		if ( in_array( $status, array( '開催予定', '開催中' ), true ) ) {
+			$upcoming[] = $post;
+		}
+	}
+
+	// 開催日が近い順。日付未入力は後ろに回す。
+	usort(
+		$upcoming,
+		static function ( WP_Post $a, WP_Post $b ): int {
+			$da = (string) torasake_field( 'event_date', $a->ID ) ?: '99999999';
+			$db = (string) torasake_field( 'event_date', $b->ID ) ?: '99999999';
+			return strcmp( $da, $db );
+		}
+	);
+
+	$cached = $upcoming[0] ?? null;
 	return $cached;
 }
 
