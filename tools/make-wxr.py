@@ -41,7 +41,23 @@ SITE = 'https://torasake.com'
 UPLOADS = f'{SITE}/uploads'
 AUTHOR = 'torasake'
 JST = timezone(timedelta(hours=9))
-NOW = datetime.now(JST).strftime('%Y-%m-%d %H:%M:%S')
+# 生成時刻より少し前にしておく。ぴったり「今」だと、インポート実行までの
+# わずかな時間差でも未来扱いになり得るため。
+NOW_DT = datetime.now(JST) - timedelta(hours=1)
+NOW = NOW_DT.strftime('%Y-%m-%d %H:%M:%S')
+
+
+def to_gmt(local: str) -> str:
+    """現地時刻（JST）の文字列を GMT の文字列に直す。
+
+    ★ ここを間違えると投稿が「予約済み」になる。
+    WXR の wp:post_date は現地時刻、wp:post_date_gmt は UTC。
+    両方に同じ値を入れると WordPress からは投稿日が9時間先に見え、
+    wp_insert_post() が status を publish から future に変えてしまう。
+    実際に本番でこれをやって、酒蔵33件とイベントが全部予約投稿になった。
+    """
+    dt = datetime.strptime(local, '%Y-%m-%d %H:%M:%S').replace(tzinfo=JST)
+    return dt.astimezone(timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
 
 # ── ACF フィールドキー ────────────────────────────────────────
 KEYS: dict[str, dict[str, str]] = {}
@@ -148,7 +164,7 @@ def item(*, title, name, post_type, post_id, status='publish', date=None,
     x.append(f'\t\t<excerpt:encoded>{cdata(excerpt)}</excerpt:encoded>')
     x.append(f'\t\t<wp:post_id>{post_id}</wp:post_id>')
     x.append(f'\t\t<wp:post_date>{cdata(date)}</wp:post_date>')
-    x.append(f'\t\t<wp:post_date_gmt>{cdata(date)}</wp:post_date_gmt>')
+    x.append(f'\t\t<wp:post_date_gmt>{cdata(to_gmt(date))}</wp:post_date_gmt>')
     x.append('\t\t<wp:comment_status>closed</wp:comment_status>')
     x.append('\t\t<wp:ping_status>closed</wp:ping_status>')
     x.append(f'\t\t<wp:post_name>{cdata(name)}</wp:post_name>')

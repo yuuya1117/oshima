@@ -107,4 +107,8 @@ WordPress を起動せずにテンプレートを実行する静的ハーネス�
   ACF の無料版では動かない。SCF は ACF の直接フォークで関数名・DB構造とも同じ。
   未有効化のときは管理画面に警告を出す（`inc/acf.php`）。
 - コンテンツの初期投入は `import/torasake-content.xml`（`tools/make-wxr.py` が生成）。
+  WXR の `wp:post_date` は現地時刻、`wp:post_date_gmt` は UTC。
+  **両方に同じ値を入れると投稿日が9時間先に見え、WordPress が publish を
+  future（予約投稿）に変えてしまう。** 本番で酒蔵33件とイベントが全部
+  予約済みになった。`tools/check-wxr.py` が見張っている。
 - テーマ切り替え時に `after_switch_theme` で初期セットアップが走る（冪等）。

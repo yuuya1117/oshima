@@ -15,6 +15,7 @@ import re
 import sys
 import urllib.parse
 import xml.etree.ElementTree as ET
+from datetime import datetime, timezone
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 XML = ROOT / 'import/torasake-content.xml'
@@ -125,6 +126,26 @@ for it in by_type.get('past_event', []):
 newest = max(dates, key=lambda k: dates[k]) if dates else None
 ok(newest == 'TORASAKE -虎ノ酒- 2026',
    f'トップの「前回の開催」に出るのは 6/27 の回', f'いま出るのは {newest} ({dates})')
+
+# post_date_gmt が未来だと WordPress が publish を future（予約投稿）に変える。
+# 現地時刻とGMTに同じ値を入れると9時間先になり、全投稿が予約済みになる。
+now_gmt = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
+future = []
+for it in items:
+    if it.find('wp:status', NS).text != 'publish':
+        continue
+    gmt = it.find('wp:post_date_gmt', NS).text
+    if gmt and gmt > now_gmt:
+        future.append(f"{it.find('title', NS).text}: {gmt}")
+ok(not future,
+   f'公開投稿の post_date_gmt が全て過去（予約投稿にならない）',
+   f'{len(future)}件が未来: {future[:3]}')
+
+# 現地時刻とGMTが同じ値になっていないか（上の症状の原因そのもの）
+same = [it.find('title', NS).text for it in items
+        if it.find('wp:post_date', NS).text == it.find('wp:post_date_gmt', NS).text]
+ok(not same, 'post_date と post_date_gmt が別の値（時差が反映されている）',
+   f'{len(same)}件が同値: {same[:3]}')
 
 # 価格が酒蔵に入っていないこと（CLAUDE.md #1）
 price_in_brewery = []
